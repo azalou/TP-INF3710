@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS mediDB.bill(
 CREATE TABLE IF NOT EXISTS mediDB.payment(
 	payID		Varchar(10)		UNIQUE Not NULL,
 	pID			Varchar(10)		Not NULL,
-	pDetails	Varchar(100)	Not NULL,
+	pDetails	Numeric(8,2)	Not NULL,
 	pMethod		Varchar(100)	Not NULL,
 	PRIMARY KEY (payID, pID),
 	FOREIGN KEY (pID) REFERENCES mediDB.patient(pID) ON DELETE RESTRICT ON UPDATE CASCADE
@@ -62,3 +62,22 @@ CREATE TABLE IF NOT EXISTS mediDB.billpayments(
 	FOREIGN KEY (payID) REFERENCES mediDB.payment(payID) ON DELETE RESTRICT ON UPDATE CASCADE,
 	FOREIGN KEY (bID) REFERENCES mediDB.bill(bID) ON DELETE RESTRICT ON UPDATE CASCADE
 );
+
+CREATE TRIGGER medicald_not_specialistd
+BEFORE INSERT ON mediDB.medicald
+WHEN EXISTS (SELECT * FROM medidb.specialistd WHERE dID = NEW.dID)
+BEGIN
+	SELECT RAISE(FAIL, "a Doctor can either be medical or specialist not both"
+END;
+
+CREATE TRIGGER specialistd_not_medicald
+BEFORE INSERT ON mediDB.specialistd
+WHEN EXISTS (SELECT * FROM medidb.medicald WHERE dID = NEW.dID)
+EXECUTE FUNCTION raise_exeption();
+
+
+CREATE FUNCTION raise_exeption()
+BEGIN
+	SELECT RAISE(FAIL, "a Doctor can either be medical or specialist not both"
+END;
+
