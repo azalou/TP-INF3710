@@ -1,4 +1,4 @@
-/*a) Affichez tous les docteurs et leurs détails.*/
+﻿/*a) Affichez tous les docteurs et leurs détails.*/
 SELECT *
 FROM mediDB.doctor;
 
@@ -15,7 +15,7 @@ WHERE (dId='D001');
 /*d) Listez tous les spécialistes, incluant tous leurs attributs de médecin et leur champ de
 spécialité (FieldArea).*/
 SELECT * 
-FROM mediDB.specialist
+FROM mediDB.specialistd
 LEFT JOIN mediDB.doctor USING (dId);
 
 /*e) Affichez le nom de tous les patients et leur date de naissance.*/
