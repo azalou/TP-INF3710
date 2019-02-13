@@ -26,6 +26,7 @@ CREATE TABLE IF NOT EXISTS mediDB.doctor(
 	dPhone		Varchar(50)		Not NULL,
 	dDOB		Date			Not NULL,
 	dSalary		Numeric(8,2)	Not Null,
+	dMedical    BOOLEAN         Not Null,
 	PRIMARY KEY (dID),
 	CONSTRAINT onSalary CHECK (dSalary>=100000.00)
 );
@@ -85,11 +86,21 @@ BEGIN
 IF EXISTS (SELECT dID FROM medidb.medicald WHERE dID = NEW.dID) OR
 	EXISTS (SELECT dID FROM medidb.specialistd WHERE dID = NEW.dID) THEN
 RAISE EXCEPTION 'Doctor cannot be both medicald and specialistd';
-
 END IF;
 RETURN NEW;
 END;
 $check_mandatoryor$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION prevent_delete_on_doctor_with_bill() RETURNS trigger AS
+$check_preventdbil$
+BEGIN
+IF EXISTS (SELECT dID FROM medidb.doctor WHERE dID = OLD.dID) THEN
+    RAISE EXCEPTION 'Cannot delete a doctor that produced a bill';
+END IF;
+RETURN NEW;
+END;
+$check_preventdbil$ LANGUAGE plpgsql;
+    
 
 CREATE TRIGGER exclusive_specialist_medical
     BEFORE INSERT OR UPDATE 
@@ -102,5 +113,11 @@ CREATE TRIGGER exclusive_medical_specialist
     ON medidb.medicald
     FOR EACH ROW
     EXECUTE PROCEDURE medidb.speclialistd_exor_medicald();
+    
+CREATE TRIGGER avoid_delete_if_bill
+    BEFORE DELETE
+    ON medicaldb.doctor
+    FOR EACH ROW
+    EXECUTE PROCEDURE prevent_delete_on_doctor_with_bill();
 
 
