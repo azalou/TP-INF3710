@@ -79,21 +79,28 @@ CREATE TABLE IF NOT EXISTS mediDB.billpayments(
 	FOREIGN KEY (bID) REFERENCES mediDB.bill(bID) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
-CREATE TRIGGER medicald_not_specialistd
-BEFORE INSERT ON mediDB.medicald
-WHEN EXISTS (SELECT * FROM medidb.specialistd WHERE dID = NEW.dID)
+CREATE OR REPLACE FUNCTION mediDB.speclialistd_exor_medicald() RETURNS trigger AS $check_mandatoryor$
 BEGIN
-	SELECT RAISE(FAIL, "a Doctor can either be medical or specialist not both"
+-- Check that dID is not in medicald
+IF EXISTS (SELECT dID FROM medidb.medicald WHERE dID = NEW.dID) OR
+	EXISTS (SELECT dID FROM medidb.specialistd WHERE dID = NEW.dID) THEN
+RAISE EXCEPTION 'Doctor cannot be both medicald and specialistd';
+
+END IF;
+RETURN NEW;
 END;
+$check_mandatoryor$ LANGUAGE plpgsql;
 
-CREATE TRIGGER specialistd_not_medicald
-BEFORE INSERT ON mediDB.specialistd
-WHEN EXISTS (SELECT * FROM medidb.medicald WHERE dID = NEW.dID)
-EXECUTE FUNCTION raise_exeption();
+CREATE TRIGGER exclusive_specialist_medical
+    BEFORE INSERT OR UPDATE 
+    ON medidb.specialistd
+    FOR EACH ROW
+    EXECUTE PROCEDURE medidb.speclialistd_exor_medicald();
+	
+CREATE TRIGGER exclusive_medical_specialist
+    BEFORE INSERT OR UPDATE 
+    ON medidb.medicald
+    FOR EACH ROW
+    EXECUTE PROCEDURE medidb.speclialistd_exor_medicald();
 
-
-CREATE FUNCTION raise_exeption()
-BEGIN
-	SELECT RAISE(FAIL, "a Doctor can either be medical or specialist not both"
-END;
 
