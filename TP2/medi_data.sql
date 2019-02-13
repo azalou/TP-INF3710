@@ -1,3 +1,9 @@
+-- REINITIALISATION
+DELETE FROM medidb.bill;
+DELETE FROM medidb.appointment;
+DELETE FROM medidb.doctor;
+DELETE FROM medidb.patient;
+
 
 -- INSERT SOME DOCTORS
 INSERT into medidb.doctor (dID, dName, dAddress, dPhone, dDOB, dSalary)
@@ -45,12 +51,24 @@ INSERT INTO medidb.patient (pID, pName, pAddress, pPhone, pDOB, pNAS)
 VALUES ('P0000007', 'Ethel I Cleaver', '2863 Papineau Avenue, Montreal, QC H2K 4J5', '514-924-9393', DATE'1937-08-19', NULL );
 
 
-
 -- INSERT SOME APPOINTMENTS
 INSERT INTO medidb.appointment (aID, aDate, aTime, pID, dID)
 VALUES ('A000000001', DATE'2019-04-15', TIME'08:00', 'P0000001', 'D003');
-
 INSERT INTO medidb.appointment (aID, aDate, aTime, pID, dID)
 VALUES ('A000000002', DATE'2019-07-31', TIME'10:00', 'P0000001', 'D004');
 INSERT INTO medidb.appointment (aID, aDate, aTime, pID, dID)
 VALUES ('A000000003', DATE'2019-11-06', TIME'08:00', 'P0000001', 'D003');
+
+INSERT INTO medidb.appointment (aID, aDate, aTime, pID, dID)
+VALUES ('A000000004', DATE'2019-04-15', TIME'08:00', 'P0000002', 'D001');
+INSERT INTO medidb.appointment (aID, aDate, aTime, pID, dID)
+VALUES ('A000000005', DATE'2019-07-31', TIME'10:30', 'P0000002', 'D002');
+INSERT INTO medidb.appointment (aID, aDate, aTime, pID, dID)
+VALUES ('A000000006', DATE'2019-11-06', TIME'09:00', 'P0000002', 'D001');
+
+INSERT INTO medidb.appointment (aID, aDate, aTime, pID, dID)
+VALUES ('A000000007', DATE'2019-04-15', TIME'08:00', 'P0000003', 'D005');
+INSERT INTO medidb.appointment (aID, aDate, aTime, pID, dID)
+VALUES ('A000000008', DATE'2019-07-31', TIME'10:30', 'P0000003', 'D006');
+INSERT INTO medidb.appointment (aID, aDate, aTime, pID, dID)
+VALUES ('A000000009', DATE'2019-11-06', TIME'09:00', 'P0000003', 'D005');
