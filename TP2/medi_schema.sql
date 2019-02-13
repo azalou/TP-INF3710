@@ -1,6 +1,4 @@
-SET search_path = medi;
-
-DROP TABLE IF EXISTS medidb.doctor CASCADE;
+﻿DROP TABLE IF EXISTS medidb.doctor CASCADE;
 DROP TABLE IF EXISTS medidb.patient CASCADE;
 DROP TABLE IF EXISTS medidb.bill CASCADE;
 DROP TABLE IF EXISTS medidb.payment CASCADE;
@@ -8,6 +6,8 @@ DROP TABLE IF EXISTS medidb.payment CASCADE;
 DROP SCHEMA IF EXISTS mediDB CASCADE;
 
 CREATE SCHEMA IF NOT EXISTS mediDB;
+
+SET search_path = mediDB;
 
 CREATE TABLE IF NOT EXISTS mediDB.patient (
 	pID			Varchar(10)		Not NULL,
@@ -116,7 +116,7 @@ CREATE TRIGGER exclusive_medical_specialist
     
 CREATE TRIGGER avoid_delete_if_bill
     BEFORE DELETE
-    ON medicaldb.doctor
+    ON medidb.doctor
     FOR EACH ROW
     EXECUTE PROCEDURE prevent_delete_on_doctor_with_bill();
 
