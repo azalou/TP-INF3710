@@ -32,25 +32,25 @@ INSERT into medidb.medicald VALUES ('D006', 645);
 
 -- INSERT SOME PATIENTS
 INSERT INTO medidb.patient (pID, pName, pAddress, pPhone, pDOB, pNAS)
-VALUES ('P0000001', 'Jaxon OBrien', '4465 Duke Street, Montreal, QC H3C 5K4', '514-123-4567', DATE'1985-03-12', NULL );
+VALUES ('P0000001', 'Jaxon OBrien', '4465 Duke Street, Montreal, QC H3C 5K4', '514-123-4567', DATE'1985-03-12', '987 345 256' );
 
 INSERT INTO medidb.patient (pID, pName, pAddress, pPhone, pDOB, pNAS)
-VALUES ('P0000002', 'Jayne Davidson', '2986 rue Ontario Ouest, Montreal, QC H2X 1Y8', '514-283-7931', DATE'1981-09-11', NULL );
+VALUES ('P0000002', 'Jayne Davidson', '2986 rue Ontario Ouest, Montreal, QC H2X 1Y8', '514-283-7931', DATE'1981-09-11', '846 345 453' );
 
 INSERT INTO medidb.patient (pID, pName, pAddress, pPhone, pDOB, pNAS)
-VALUES ('P0000003', 'Carys Horn', '2567 rue Levy, Montreal, QC H3C 5K4', '514-378-5389', DATE'1965-05-15', NULL );
+VALUES ('P0000003', 'Carys Horn', '2567 rue Levy, Montreal, QC H3C 5K4', '514-378-5389', DATE'1965-05-15', '878 345 453' );
 
 INSERT INTO medidb.patient (pID, pName, pAddress, pPhone, pDOB, pNAS)
-VALUES ('P0000004', 'James A Burgess', '2777 Ste. Catherine Ouest, Montreal, QC H2A 2Z3', '514-777-7412', DATE'1983-02-23', NULL );
+VALUES ('P0000004', 'James A Burgess', '2777 Ste. Catherine Ouest, Montreal, QC H2A 2Z3', '514-777-7412', DATE'1983-02-23', '859 345 453' );
 
 INSERT INTO medidb.patient (pID, pName, pAddress, pPhone, pDOB, pNAS)
-VALUES ('P0000005', 'Dupont A Haddock', '3456 rue Bourret, Montreal, QC H3W 2K3', '514-987-6453', DATE'1993-08-12', NULL );
+VALUES ('P0000005', 'Dupont A Haddock', '3456 rue Bourret, Montreal, QC H3W 2K3', '514-987-6453', DATE'1993-08-12', '800 345 453' );
 
 INSERT INTO medidb.patient (pID, pName, pAddress, pPhone, pDOB, pNAS)
-VALUES ('P0000006', 'Israel V Gant', '3748 René-Lévesque Blvd, Montreal, QC H3B 4W8', '514-573-5968', DATE'1988-09-25', NULL );
+VALUES ('P0000006', 'Israel V Gant', '3748 René-Lévesque Blvd, Montreal, QC H3B 4W8', '514-573-5968', DATE'1988-09-25', '846 111 453' );
 
 INSERT INTO medidb.patient (pID, pName, pAddress, pPhone, pDOB, pNAS)
-VALUES ('P0000007', 'Ethel I Cleaver', '2863 Papineau Avenue, Montreal, QC H2K 4J5', '514-924-9393', DATE'1937-08-19', NULL );
+VALUES ('P0000007', 'Ethel I Cleaver', '2863 Papineau Avenue, Montreal, QC H2K 4J5', '514-924-9393', DATE'1937-08-19', '846 345 777' );
 
 
 -- INSERT SOME APPOINTMENTS
