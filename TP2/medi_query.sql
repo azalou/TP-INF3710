@@ -21,4 +21,3 @@ LEFT JOIN mediDB.doctor USING (dId);
 /*e) Affichez le nom de tous les patients et leur date de naissance.*/
 SELECT pName, pDOB
 FROM mediDB.patient;
-

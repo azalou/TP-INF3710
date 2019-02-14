@@ -10,7 +10,7 @@ CREATE SCHEMA IF NOT EXISTS mediDB;
 SET search_path = mediDB;
 
 CREATE TABLE IF NOT EXISTS mediDB.patient (
-	pID			Varchar(10)		UNIQUE Not NULL,
+	pID			Varchar(10)		Not NULL,
 	pName		Varchar(20)		Not NULL,
 	pAddress	Varchar(100),
 	pPhone		Varchar(50),
@@ -19,22 +19,22 @@ CREATE TABLE IF NOT EXISTS mediDB.patient (
 );
 
 CREATE TABLE IF NOT EXISTS mediDB.doctor(
-	dID			Varchar(10)		UNIQUE Not NULL,
+	dID			Varchar(10)		Not NULL,
 	dName		Varchar(20)		Not NULL,
-	dAddress	Varchar(100)	,
-	dPhone		Varchar(50)		,
-	dDOB		Date			,
-	dSalary		Numeric(8,2)	,
+	dAddress	Varchar(100),
+	dPhone		Varchar(50)		Not NULL,
+	dDOB		Date,
+	dSalary		Numeric(8,2),
 	PRIMARY KEY (dID),
 	CONSTRAINT onSalary CHECK (dSalary>=100000.00)
 );
 
 CREATE TABLE IF NOT EXISTS mediDB.appointment (
-	aID VARCHAR(10) NOT NULL,
-	aDate DATE NOT NULL,
-	aTime TIME NOT NULL,
-	pID VARCHAR(10) NOT NULL,
-	dID VARCHAR(10) NOT NULL,
+	aID        VARCHAR(10)     NOT NULL,
+	aDate      DATE            NOT NULL,
+	aTime      TIME            NOT NULL,
+	pID        VARCHAR(10)     NOT NULL,
+	dID        VARCHAR(10)     NOT NULL,
 	PRIMARY KEY (aID, pID, dID),
 	FOREIGN KEY (pID) REFERENCES mediDB.patient(pID) ON DELETE CASCADE ON UPDATE CASCADE,
 	FOREIGN KEY (dID) REFERENCES mediDB.doctor(dID) ON DELETE RESTRICT ON UPDATE CASCADE
@@ -58,6 +58,7 @@ CREATE TABLE IF NOT EXISTS mediDB.specialistd(
 CREATE TABLE IF NOT EXISTS mediDB.bill(
 	bID			Varchar(10)		UNIQUE Not NULL,
 	dID			Varchar(10)		Not NULL,
+	bTotal      Numeric(8,2)    Not NULL,
 	PRIMARY KEY (bID, dID),
 	FOREIGN KEY (dID) REFERENCES mediDB.doctor(dID) ON DELETE RESTRICT ON UPDATE CASCADE
 );
@@ -73,15 +74,16 @@ CREATE TABLE IF NOT EXISTS mediDB.payment(
 
 CREATE TABLE IF NOT EXISTS mediDB.billpayments(
 	payID		Varchar(10)		Not NULL,
-	bID			Varchar(10)		Not NULL,-- pas sur ici
+	pID		    Varchar(10)		Not NULL,
+	bID			Varchar(10)		Not NULL,
+	dID			Varchar(10)		Not NULL,
 	PRIMARY KEY (payID, bID),
-	FOREIGN KEY (payID) REFERENCES mediDB.payment(payID) ON DELETE RESTRICT ON UPDATE CASCADE,
-	FOREIGN KEY (bID) REFERENCES mediDB.bill(bID) ON DELETE RESTRICT ON UPDATE CASCADE
+	FOREIGN KEY (payID, pID) REFERENCES mediDB.payment(payID, pID) ON DELETE RESTRICT ON UPDATE CASCADE,
+	FOREIGN KEY (bID, dID) REFERENCES mediDB.bill(bID, dID) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 ---- ALTERATIONS
 ALTER TABLE medidb.patient ADD COLUMN pNAS VARCHAR(15) UNIQUE;
-
 
 ---- FONCTIONS
 

@@ -1,4 +1,5 @@
 ﻿-- REINITIALISATION
+DELETE FROM medidb.billpayments;
 DELETE FROM medidb.bill;
 DELETE FROM medidb.appointment;
 DELETE FROM medidb.doctor;
@@ -29,7 +30,7 @@ INSERT into medidb.medicald VALUES ('D006', 645);
 
 
 
--- INSERT SOME PATIENT
+-- INSERT SOME PATIENTS
 INSERT INTO medidb.patient (pID, pName, pAddress, pPhone, pDOB, pNAS)
 VALUES ('P0000001', 'Jaxon OBrien', '4465 Duke Street, Montreal, QC H3C 5K4', '514-123-4567', DATE'1985-03-12', NULL );
 
@@ -77,16 +78,46 @@ VALUES ('A000000009', DATE'2019-11-06', TIME'09:00', 'P0000003', 'D005');
 
 -- INSERT SOME PAYMENTS
 INSERT INTO medidb.payment (payID, pID, pDetails, pMethod)
-VALUES ('PAY0000001', 'P0000001', '1', 'VIREMENT');
+VALUES ('PAY0000001', 'P0000001', 545, 'VIREMENT');
 INSERT INTO medidb.payment (payID, pID, pDetails, pMethod)
-VALUES ('PAY0000002', 'P0000002', '1', 'VIREMENT');
+VALUES ('PAY0000004', 'P0000001', 545, 'VIREMENT');
 INSERT INTO medidb.payment (payID, pID, pDetails, pMethod)
-VALUES ('PAY0000003', 'P0000003', '1', 'VIREMENT');
+VALUES ('PAY0000005', 'P0000001', 1000, 'VIREMENT');
+
+INSERT INTO medidb.payment (payID, pID, pDetails, pMethod)
+VALUES ('PAY0000002', 'P0000002', 345, 'VIREMENT');
+INSERT INTO medidb.payment (payID, pID, pDetails, pMethod)
+VALUES ('PAY0000006', 'P0000002', 1000, 'VIREMENT');
+
+INSERT INTO medidb.payment (payID, pID, pDetails, pMethod)
+VALUES ('PAY0000003', 'P0000003', 300, 'VIREMENT');
 
 -- INSERT SOME BILLS
-INSERT INTO medidb.bill (bID, dID)
-VALUES ('B000000001', 'D001');
-INSERT INTO medidb.bill (bID, dID)
-VALUES ('B000000002', 'D002');
-INSERT INTO medidb.bill (bID, dID)
-VALUES ('B000000003', 'D003');
+INSERT INTO medidb.bill
+VALUES ('B000000001', 'D003', 2400);
+INSERT INTO medidb.bill
+VALUES ('B000000005', 'D004', 3400);
+INSERT INTO medidb.bill
+VALUES ('B000000002', 'D001', 4999);
+INSERT INTO medidb.bill
+VALUES ('B000000003', 'D002', 200);
+INSERT INTO medidb.bill
+VALUES ('B000000004', 'D006', 300);
+
+
+-- INSERT RELATIONSHIP BETWEEN BILL AND PAYMENTS
+INSERT INTO medidb.billpayments (payID, pID, bID, dID)
+VALUES ('PAY0000001', 'P0000001', 'B000000001', 'D003');
+INSERT INTO medidb.billpayments (payID, pID, bID, dID)
+VALUES ('PAY0000004', 'P0000001', 'B000000001', 'D003');
+INSERT INTO medidb.billpayments (payID, pID, bID, dID)
+VALUES ('PAY0000005', 'P0000001', 'B000000005', 'D004');
+
+INSERT INTO medidb.billpayments (payID, pID, bID, dID)
+VALUES ('PAY0000002', 'P0000002', 'B000000002', 'D001');
+INSERT INTO medidb.billpayments (payID, pID, bID, dID)
+VALUES ('PAY0000006', 'P0000002', 'B000000002', 'D001');
+
+INSERT INTO medidb.billpayments (payID, pID, bID, dID)
+VALUES ('PAY0000003', 'P0000003', 'B000000004', 'D006');
+
