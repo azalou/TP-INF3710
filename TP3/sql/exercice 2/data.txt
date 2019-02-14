@@ -1,0 +1,43 @@
+-- DEPARTEMENT
+'genChem', 9
+'gigl', 40
+'Maths', 5
+	
+-- Cours
+
+'105', 'programmation','gigl'
+'200', 'NLP','gigl'	
+'304',	'Geometrie 101', 'Maths'
+'305',	'Theoremes en geometrie', 'Maths'	
+'306',	'Geometrie intermediaire', 'Maths'
+'307',	'Geometrie','Maths'
+	
+-- Prof
+'p1', 'AZ', 'gigl'		
+'p2', 'MG', 'gigl'
+'p3', 'NZ', 'Maths'
+'p4', 'LH', 'Maths'	
+
+-- Section
+'105', '1', 'p1'	
+'105', '2', 'p1'	
+'305', '1', 'p3'	
+'305', '2', 'p4'
+
+--ETUDIANTS
+
+'Simon Nissan', 's1', 'M', 20, '4.2'
+'Laurent Passepartout', 's2', 'M', 30, '3.2'
+'Alexandra Laplace', 's3', 'F', 40, '2.8'
+'Alex Laplace', 's4', 'F', 30, '3.5'
+'Simon Belanger', 's5', 'M', 20, '3.2'
+'Mark Zuck', 's6', 'M', 30, '1.2'
+'Sophie Yenamarre', 's7', 'M', 30, '4.2'
+
+-- INSCRIPTION
+'s3', '105', '1', 90
+'s2', '105', '1', 60
+'s1', '105', '2', 70	
+'s5', '105', '2', 70
+'s5', '305', '2', 100
+'s6', '305', '2', 65
