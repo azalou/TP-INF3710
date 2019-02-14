@@ -25,7 +25,6 @@ CREATE TABLE IF NOT EXISTS mediDB.doctor(
 	dPhone		Varchar(50)		,
 	dDOB		Date			,
 	dSalary		Numeric(8,2)	,
-	dMedical    BOOLEAN         ,
 	PRIMARY KEY (dID),
 	CONSTRAINT onSalary CHECK (dSalary>=100000.00)
 );

@@ -1,8 +1,9 @@
--- REINITIALISATION
+﻿-- REINITIALISATION
 DELETE FROM medidb.bill;
 DELETE FROM medidb.appointment;
 DELETE FROM medidb.doctor;
 DELETE FROM medidb.patient;
+DELETE FROM medidb.payment;
 
 
 -- INSERT SOME DOCTORS
@@ -72,3 +73,20 @@ INSERT INTO medidb.appointment (aID, aDate, aTime, pID, dID)
 VALUES ('A000000008', DATE'2019-07-31', TIME'10:30', 'P0000003', 'D006');
 INSERT INTO medidb.appointment (aID, aDate, aTime, pID, dID)
 VALUES ('A000000009', DATE'2019-11-06', TIME'09:00', 'P0000003', 'D005');
+
+
+-- INSERT SOME PAYMENTS
+INSERT INTO medidb.payement (payID, pID, pDetails, pMethod)
+VALUES ('PAY0000001', 'P0000001', '', 'VIREMENT');
+INSERT INTO medidb.payement (payID, pID, pDetails, pMethod)
+VALUES ('PAY0000002', 'P0000002', '', 'VIREMENT');
+INSERT INTO medidb.payement (payID, pID, pDetails, pMethod)
+VALUES ('PAY0000003', 'P0000003', '', 'VIREMENT');
+
+-- INSERT SOME BILLS
+INSERT INTO medidb.bill (bID, dID)
+VALUES ('B000000001', 'D001');
+INSERT INTO medidb.bill (bID, dID)
+VALUES ('B000000002', 'D002');
+INSERT INTO medidb.bill (bID, dID)
+VALUES ('B000000003', 'D003');
