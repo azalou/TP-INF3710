@@ -20,9 +20,10 @@ DECLARE
 	new_name varchar;
 	new_phonenum varchar;
 BEGIN
-	IF (PG_OP='INSERT') THEN
+	IF (TG_OP='INSERT') THEN
 		INSERT INTO phonebook(name,phonenum) VALUES(NEW.NAME, NEW.phonenum);
 	END IF;
+RETURN NEW;
 END
 $phonebook$ LANGUAGE plpgsql;
 
@@ -38,5 +39,6 @@ insert into addressbook(name, address, phoneNum) VALUES ('AZ','rue des 100 souci
 
 select * from phonebook;
 
-
+-- Insertion de données pour test
+INSERT INTO phonebook(name, phonenum) VALUES ('Alassane', '514-222-3333');
 
