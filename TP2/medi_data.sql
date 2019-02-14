@@ -76,12 +76,12 @@ VALUES ('A000000009', DATE'2019-11-06', TIME'09:00', 'P0000003', 'D005');
 
 
 -- INSERT SOME PAYMENTS
-INSERT INTO medidb.payement (payID, pID, pDetails, pMethod)
-VALUES ('PAY0000001', 'P0000001', '', 'VIREMENT');
-INSERT INTO medidb.payement (payID, pID, pDetails, pMethod)
-VALUES ('PAY0000002', 'P0000002', '', 'VIREMENT');
-INSERT INTO medidb.payement (payID, pID, pDetails, pMethod)
-VALUES ('PAY0000003', 'P0000003', '', 'VIREMENT');
+INSERT INTO medidb.payment (payID, pID, pDetails, pMethod)
+VALUES ('PAY0000001', 'P0000001', '1', 'VIREMENT');
+INSERT INTO medidb.payment (payID, pID, pDetails, pMethod)
+VALUES ('PAY0000002', 'P0000002', '1', 'VIREMENT');
+INSERT INTO medidb.payment (payID, pID, pDetails, pMethod)
+VALUES ('PAY0000003', 'P0000003', '1', 'VIREMENT');
 
 -- INSERT SOME BILLS
 INSERT INTO medidb.bill (bID, dID)
