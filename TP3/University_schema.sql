@@ -7,7 +7,7 @@ SET search_path = universityDB;
 CREATE DOMAIN universityDB.SEX AS CHAR
 	CHECK (VALUE IN ('M', 'F'));
 
-CREATE TABLE IF NOT EXISTS universityDB.etudiant (
+CREATE TABLE IF NOT EXISTS universityDB.student (
 	sID		Varchar(10)		Not NULL,
 	sName      	Varchar(50)		Not NULL,
 	sSex		SEX,
@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS universityDB.prof(
 	FOREIGN KEY (dID) REFERENCES dept(dID)
 );
 
-CREATE TABLE IF NOT EXISTS universityDB.cours(
+CREATE TABLE IF NOT EXISTS universityDB.course(
 	cID		Varchar(10)       Not NULL,
 	cName		VARCHAR(50)       Not NULL,
 	dID	        Varchar(10)        Not NULL,
@@ -44,16 +44,16 @@ CREATE TABLE IF NOT EXISTS universityDB.section(
 	pID		Varchar(10)        Not NULL,
 	PRIMARY KEY (cID, secID),
 	FOREIGN KEY (pID) REFERENCES prof(pID) ON DELETE SET NULL,
-	FOREIGN KEY (cID) REFERENCES cours(cID) ON DELETE CASCADE ON UPDATE CASCADE
+	FOREIGN KEY (cID) REFERENCES course(cID) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS universityDB.inscription(
+CREATE TABLE IF NOT EXISTS universityDB.enrollment(
     sID         Varchar(10)         Not NULL,
 	cID			Varchar(10)         Not NULL,
 	secID	    VARCHAR(10)         Not NULL,
 	note        INTEGER        Not NULL,
 	PRIMARY KEY (sID, cID, secID),
-	FOREIGN KEY (sID) REFERENCES etudiant(sID),
+	FOREIGN KEY (sID) REFERENCES student(sID),
 	FOREIGN KEY (cID, secID) REFERENCES section(cID, secID)
 );
 
