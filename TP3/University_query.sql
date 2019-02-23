@@ -34,6 +34,11 @@ SELECT * FROM universityDB.student WHERE sID NOT IN (SELECT sID FROM universityD
 SELECT * FROM universityDB.course WHERE cName SIMILAR TO '%(g|G)_om%';
 
 --10) Imprimer le nom des étudiants qui suivent un cours de géométrie (toutes les combinaisons de titres possibles)
+DROP VIEW IF EXISTS NumCOURS_NomCOURS_NumEtudiant CASCADE;
+CREATE VIEW NumCOURS_NomCOURS_NumEtudiant (Num_Cours, Nom_Cours, Num_Etudiant )
+AS SELECT course.cID, course.cNAme, enrollment.sID FROM universityDB.course
+LEFT JOIN universityDB.enrollment USING (cID)
+
 SELECT sName, cName FROM (
 SELECT course.cID, course.cNAme, enrollment.sID FROM universityDB.course
 LEFT JOIN universityDB.enrollment USING (cID)
@@ -42,7 +47,9 @@ LEFT JOIN universityDB.Student USING (sID)
 WHERE cName SIMILAR TO '%(g|G)_om%';
 
 SELECT S.sName, C.cName
-FROM universityDB.course C, universityDB.student
+FROM universityDB.course C, universityDB.student S, universityDB.enrollment E
+WHERE E.sID IS NOT NULL
+AND cName SIMILAR TO '%(g|G)_om%';
 
 --11)  Imprimer le nom des étudiants qui sont inscrits à au moins un cours du département GIGL et au moins un cours du département de mathématiques - Utilisez INTERSECT
 (SELECT sName FROM universityDB.student WHERE sID IN (
