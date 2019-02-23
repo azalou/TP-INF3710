@@ -1,11 +1,4 @@
-/*
-1) (0.5 point) 
-2) (0.5 point) 
-3) (1 point) 
-
-*/
-
--- 1) Retourner tous les étudiants par ordre croissant sur leur nom
+﻿-- 1) Retourner tous les étudiants par ordre croissant sur leur nom
 SELECT * FROM universityDB.student ORDER BY sname ASC;
 
 -- 2) Retourner le nom des professeurs et leur département. Nommez les colonnes Professeur et Dep
@@ -35,6 +28,48 @@ SELECT * FROM universityDB.student
 LEFT JOIN universityDB.enrollment USING (sID);
 
 --8)  Retourner l'info des étudiants qui ne sont inscrits à aucun cours - Utilisez une sous-requête
-SELECT * FROM universityDB.student WHERE NOT EXISTS (SELECT sID FROM universityDB.enrollment); -- a revoir
+SELECT * FROM universityDB.student WHERE sID NOT IN (SELECT sID FROM universityDB.enrollment);
+
+--9)  Imprimer les informations des cours qui parlent de géométrie (toutes les combinaisons de titres possibles)
+SELECT * FROM universityDB.course WHERE cName SIMILAR TO '%(g|G)_om%';
+
+--10) Imprimer le nom des étudiants qui suivent un cours de géométrie (toutes les combinaisons de titres possibles)
+SELECT sName, cName FROM (
+SELECT course.cID, course.cNAme, enrollment.sID FROM universityDB.course
+LEFT JOIN universityDB.enrollment USING (cID)
+WHERE enrollment.sID IS NOT NULL) AS foo
+LEFT JOIN universityDB.Student USING (sID)
+WHERE cName SIMILAR TO '%(g|G)_om%';
+
+SELECT S.sName, C.cName
+FROM universityDB.course C, universityDB.student
+
+--11)  Imprimer le nom des étudiants qui sont inscrits à au moins un cours du département GIGL et au moins un cours du département de mathématiques - Utilisez INTERSECT
+(SELECT sName FROM universityDB.student WHERE sID IN (
+SELECT sID FROM universityDB.enrollment WHERE cID IN (
+SELECT cID from universitydb.course where dID = 'gigl'
+)))
+INTERSECT
+(SELECT sName FROM universityDB.student WHERE sID IN (
+SELECT sID FROM universityDB.enrollment WHERE cID IN (
+SELECT cID from universitydb.course where dID = 'Maths'
+)));
+
+--12)   Imprimer le nom des étudiants qui suivent un cours du département GIGL OU un cours du département de mathématiques
+(SELECT sName FROM universityDB.student WHERE sID IN (
+SELECT sID FROM universityDB.enrollment WHERE cID IN (
+SELECT cID from universitydb.course where dID = 'gigl'
+)))
+UNION
+(SELECT sName FROM universityDB.student WHERE sID IN (
+SELECT sID FROM universityDB.enrollment WHERE cID IN (
+SELECT cID from universitydb.course where dID = 'Maths'
+)));
+
+--13) Quelle est la différence d'âge entre le plus vieux et le plus jeune étudiant ? Affichez le résultat dans une colonne nommée Differenc
+SELECT MAX(sage) - MIN(sage) AS difference FROM universityDB.student;
+
+--14)  Quel est le nombre d'étudiants dont la moyenne est supérieure à la moyenne de tous les étudiants ?
+SELECT COUNT(sID) FROM universityDB.enrollment WHERE note > (SELECT AVG(enrollment.note) FROM enrollment);
 
 
