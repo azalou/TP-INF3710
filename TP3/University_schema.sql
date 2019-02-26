@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS universityDB.enrollment(
     sID         Varchar(10)         Not NULL,
 	cID			Varchar(10)         Not NULL,
 	secID	    VARCHAR(10)         Not NULL,
-	note        INTEGER        Not NULL,
+	note        INTEGER,
 	PRIMARY KEY (sID, cID, secID),
 	FOREIGN KEY (sID) REFERENCES student(sID),
 	FOREIGN KEY (cID, secID) REFERENCES section(cID, secID)

@@ -1,4 +1,9 @@
-﻿-- 1) Retourner tous les étudiants par ordre croissant sur leur nom
+﻿set search_path = universityDB;
+/*
+	Requètes SQL
+*/
+
+-- 1) Retourner tous les étudiants par ordre croissant sur leur nom
 SELECT * FROM universityDB.student ORDER BY sname ASC;
 
 -- 2) Retourner le nom des professeurs et leur département. Nommez les colonnes Professeur et Dep
@@ -34,49 +39,57 @@ SELECT * FROM universityDB.student WHERE sID NOT IN (SELECT sID FROM universityD
 SELECT * FROM universityDB.course WHERE cName SIMILAR TO '%(g|G)_om%';
 
 --10) Imprimer le nom des étudiants qui suivent un cours de géométrie (toutes les combinaisons de titres possibles)
-DROP VIEW IF EXISTS NumCOURS_NomCOURS_NumEtudiant CASCADE;
-CREATE VIEW NumCOURS_NomCOURS_NumEtudiant (Num_Cours, Nom_Cours, Num_Etudiant )
-AS SELECT course.cID, course.cNAme, enrollment.sID FROM universityDB.course
-LEFT JOIN universityDB.enrollment USING (cID)
-
-SELECT sName, cName FROM (
+--Solution 1
+DROP VIEW IF EXISTS universityDB.NumCOURS_NomCOURS_NumEtudiant_NomEtudiant CASCADE;
+CREATE VIEW universityDB.NumCOURS_NomCOURS_NumEtudiant_NomEtudiant (Num_Cours, Nom_Cours, Num_Etudiant, Nom_Etudiant )
+AS SELECT Co.cID, Co.cNAme, En.sID, St.sName
+FROM universityDB.course Co, universityDB.enrollment En, universityDB.Student St
+WHERE Co.cID = En.cID
+AND En.sID = St.sID
+GROUP BY Co.cID, En.sID, St.sName;
+SELECT Nom_Etudiant FROM universityDB.NumCOURS_NomCOURS_NumEtudiant_NomEtudiant
+WHERE Nom_Cours SIMILAR TO '%(g|G)_om%';
+--Solution 2 (Mêmes resultats)
+SELECT sName AS Nom_Etudiant FROM (
 SELECT course.cID, course.cNAme, enrollment.sID FROM universityDB.course
 LEFT JOIN universityDB.enrollment USING (cID)
 WHERE enrollment.sID IS NOT NULL) AS foo
 LEFT JOIN universityDB.Student USING (sID)
 WHERE cName SIMILAR TO '%(g|G)_om%';
 
-SELECT S.sName, C.cName
-FROM universityDB.course C, universityDB.student S, universityDB.enrollment E
-WHERE E.sID IS NOT NULL
-AND cName SIMILAR TO '%(g|G)_om%';
-
 --11)  Imprimer le nom des étudiants qui sont inscrits à au moins un cours du département GIGL et au moins un cours du département de mathématiques - Utilisez INTERSECT
-(SELECT sName FROM universityDB.student WHERE sID IN (
-SELECT sID FROM universityDB.enrollment WHERE cID IN (
-SELECT cID from universitydb.course where dID = 'gigl'
-)))
+
+(SELECT sName From universityDB.student S, universityDB.enrollment E, universityDB.course C
+Where s.sID = E.sID
+AND E.cID = C.cID
+AND C.dID = 'gigl')
 INTERSECT
-(SELECT sName FROM universityDB.student WHERE sID IN (
-SELECT sID FROM universityDB.enrollment WHERE cID IN (
-SELECT cID from universitydb.course where dID = 'Maths'
-)));
+( SELECT sName From universityDB.student S, universityDB.enrollment E, universityDB.course C
+Where s.sID = E.sID
+AND E.cID = C.cID
+AND C.dID='Maths'
+);
 
 --12)   Imprimer le nom des étudiants qui suivent un cours du département GIGL OU un cours du département de mathématiques
-(SELECT sName FROM universityDB.student WHERE sID IN (
-SELECT sID FROM universityDB.enrollment WHERE cID IN (
-SELECT cID from universitydb.course where dID = 'gigl'
-)))
+(SELECT sName From universityDB.student S, universityDB.enrollment E, universityDB.course C
+Where s.sID = E.sID
+AND E.cID = C.cID
+AND C.dID = 'gigl')
 UNION
-(SELECT sName FROM universityDB.student WHERE sID IN (
-SELECT sID FROM universityDB.enrollment WHERE cID IN (
-SELECT cID from universitydb.course where dID = 'Maths'
-)));
+( SELECT sName From universityDB.student S, universityDB.enrollment E, universityDB.course C
+Where s.sID = E.sID
+AND E.cID = C.cID
+AND C.dID='Maths'
+);
 
 --13) Quelle est la différence d'âge entre le plus vieux et le plus jeune étudiant ? Affichez le résultat dans une colonne nommée Differenc
 SELECT MAX(sage) - MIN(sage) AS difference FROM universityDB.student;
 
 --14)  Quel est le nombre d'étudiants dont la moyenne est supérieure à la moyenne de tous les étudiants ?
 SELECT COUNT(sID) FROM universityDB.enrollment WHERE note > (SELECT AVG(enrollment.note) FROM enrollment);
+
+--15)  Quels sont le ou les étudiants avec la plus grande moyenne ? Affichez le nom des étudiants et leur moyenne
+SELECT sName FROM student WHERE sGPA = (SELECT MAX(sGPA) FROM Student);
+
 
 
