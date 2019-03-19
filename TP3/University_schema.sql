@@ -8,7 +8,7 @@ CREATE DOMAIN universityDB.SEX AS CHAR
 	CHECK (VALUE IN ('M', 'F'));
 
 CREATE TABLE IF NOT EXISTS universityDB.student (
-	sID		Varchar(10)		Not NULL,
+	sID		    Varchar(10)		Not NULL,
 	sName      	Varchar(50)		Not NULL,
 	sSex		SEX,
 	sAge		INTEGER,
@@ -17,23 +17,23 @@ CREATE TABLE IF NOT EXISTS universityDB.student (
 );
 
 CREATE TABLE IF NOT EXISTS universityDB.dept(
-	dID		Varchar(10)       Not NULL,
-	dnbrPHDs	INTEGER          Not NULL,
+	dID		    Varchar(10)   Not NULL,
+	dnbrPHDs	INTEGER       Not NULL,
 	PRIMARY KEY (dID)
 );
 
 CREATE TABLE IF NOT EXISTS universityDB.prof(
-	pID		Varchar(10)       Not NULL,
+	pID		    Varchar(10)       Not NULL,
 	pName		VARCHAR(50)       Not NULL,
-	dID	        Varchar(10)        Not NULL,
+	dID	        Varchar(10)       Not NULL,
 	PRIMARY KEY (pID),
 	FOREIGN KEY (dID) REFERENCES dept(dID)
 );
 
 CREATE TABLE IF NOT EXISTS universityDB.course(
-	cID		Varchar(10)       Not NULL,
+	cID		    Varchar(10)       Not NULL,
 	cName		VARCHAR(50)       Not NULL,
-	dID	        Varchar(10)        Not NULL,
+	dID	        Varchar(10)       Not NULL,
 	PRIMARY KEY (cID),
 	FOREIGN KEY (dID) REFERENCES dept(dID)
 );

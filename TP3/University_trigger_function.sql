@@ -34,6 +34,7 @@ BEGIN
         SELECT OLD.sID, OLD.cID, OLD.secID, OLD.note INTO Student_num, Course_num, Section_num, grade;
             
         INSERT INTO universityDB.Audit VALUES (Student_num, Course_num, Section_num, grade, CURRENT_TIMESTAMP);
+        --INSERT INTO universityDB.Audit VALUES (OLD.sID, OLD.cID, OLD.secID, OLD.note, CURRENT_TIMESTAMP);
         RETURN NEW;
     END IF;
 END;

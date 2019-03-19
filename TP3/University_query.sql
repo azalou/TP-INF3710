@@ -51,10 +51,9 @@ SELECT Nom_Etudiant FROM universityDB.NumCOURS_NomCOURS_NumEtudiant_NomEtudiant
 WHERE Nom_Cours SIMILAR TO '%(g|G)_om%';
 --Solution 2 (Mêmes resultats)
 SELECT sName AS Nom_Etudiant FROM (
-SELECT course.cID, course.cNAme, enrollment.sID FROM universityDB.course
-LEFT JOIN universityDB.enrollment USING (cID)
-WHERE enrollment.sID IS NOT NULL) AS foo
-LEFT JOIN universityDB.Student USING (sID)
+(SELECT course.cID, course.cNAme, E.sID FROM universityDB.enrollment E
+LEFT JOIN universityDB.course USING (cID)) AS foo
+LEFT JOIN universityDB.Student USING (sID))
 WHERE cName SIMILAR TO '%(g|G)_om%';
 
 --11)  Imprimer le nom des étudiants qui sont inscrits à au moins un cours du département GIGL et au moins un cours du département de mathématiques - Utilisez INTERSECT
@@ -64,7 +63,7 @@ Where s.sID = E.sID
 AND E.cID = C.cID
 AND C.dID = 'gigl')
 INTERSECT
-( SELECT sName From universityDB.student S, universityDB.enrollment E, universityDB.course C
+(SELECT sName From universityDB.student S, universityDB.enrollment E, universityDB.course C
 Where s.sID = E.sID
 AND E.cID = C.cID
 AND C.dID='Maths'
@@ -76,7 +75,7 @@ Where s.sID = E.sID
 AND E.cID = C.cID
 AND C.dID = 'gigl')
 UNION
-( SELECT sName From universityDB.student S, universityDB.enrollment E, universityDB.course C
+(SELECT sName From universityDB.student S, universityDB.enrollment E, universityDB.course C
 Where s.sID = E.sID
 AND E.cID = C.cID
 AND C.dID='Maths'
