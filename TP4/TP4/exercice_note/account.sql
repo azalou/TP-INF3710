@@ -54,12 +54,14 @@ COMMIT;
 
 -- Q1a.
 /*
-    Ici le problème c'est que la transaction A est complètement ignorée et seule la valeur de la transaction B est prise en compte à la fin: La transaction A retire 200 dollars du compte et la transaction b retire 500 dollars. On s'attendrait donc que le résultat final soit une réduction de 700. Mais on voit qu'on a juste le retrait de 500 de la transaction B dans l'état final. Ceci est du au fait que la mise à jour de la transaction B s'est faite sur la valeur lue précédemment par la transaction B. Donc lorsque la transaction A écrit sur la table, la valeur se fait effacer par la tranasaction B.
+    Ici, le problème est que la transaction A est complètement ignorée. Seule la valeur de la transaction B est prise en compte à la fin. En effet, la transaction A retire 200$ du compte et la transaction b retire 500$. On s'attendrait donc que le résultat final soit une réduction de 700$ du compte. 
+    Mais on voit qu'on a juste le retrait de 500 de la transaction B dans l'état final. Ceci est dû au fait que la mise à jour du compte par la transaction B s'est faite sur la valeur lue précédemment par la transaction B. Une valeur qui avait été lue avant que la transaction A n'ait validé sa transaction. Ainsi, lorsque la transaction A écrit sur la table et valide, cette valeur se fait écraser par la transaction B.
 */
  
   -- Q1b.
  /*
     On doit verrouiller la table à la ligne qui sera modifiée. On peut utiliser un lock table ou, mieux, select ....... for update;
+    18662124318
  */
 DROP TABLE if EXISTS balancea CASCADE;
 DROP TABLE if EXISTS balanceb CASCADE;
@@ -67,14 +69,6 @@ DELETE FROM Accounts;
 INSERT INTO Accounts (acctID, balance) VALUES (101, 1000);
 INSERT INTO Accounts (acctID, balance) VALUES (202, 2000);
 SELECT * FROM Accounts;
-
-
---------------------------------------
-UPDATE Accounts                                         
-SET balance = 1000 WHERE acctID = 101;
-commit;
---------------------------------------
-
 --- Q1 b
 
 -- TRANSACTION A
@@ -91,7 +85,7 @@ SELECT bal FROM balancea;
 BEGIN TRANSACTION ISOLATION LEVEL READ COMMITTED;
 SELECT balance - 500 as bal into balanceb
 FROM Accounts WHERE acctID = 101 FOR UPDATE;
-SELECT bal from balanceb;
+SELECT bal from balanceb;  -- Transaction attend que A finisse avec le tuple
 
 
 -- TRANSACTION A
@@ -103,7 +97,7 @@ WHERE acctID = 101;
 -- TRANSACTION B
 UPDATE Accounts
 SET balance = (select bal from balanceb)
-WHERE acctID = 101; -- Transaction attend que A finisse
+WHERE acctID = 101;
 
 
 -- TRANSACTION A
@@ -128,7 +122,8 @@ SELECT * FROM Accounts;
 /*
     Q2
 */
---ISOLATION LEVEL REPEATABLE READ;
+
+-- Q2.a
 -- TRANSACTION A
 \set AUTCOMMIT off
 BEGIN;
@@ -156,26 +151,47 @@ SELECT * FROM Accounts
 WHERE balance > 500;
 COMMIT;
 
-
--- Q2.a
  
  /*
-    Quand la tranaction A utilise l'isolation READ COMMITTED, si la transaction B fait un commit la transaction A a des résultats différent lorsque la même commande de lecture est utilisée avant et après le commit. En effet: le deuxième SELECT utilise la nouvelle valeur des montants dans les comptes.
+    Quand la tranaction A utilise l'isolation READ COMMITTED, si la transaction B fait un commit pendant que A est encore en cours, la transaction A lit des valeurs différentes lorsqu’elle fait des SELECT sur les tuples que B écrit et valide. En effet: le deuxième SELECT utilise la nouvelle valeur des montants dans les comptes comme écrit par B. 
  */
 
-
--- Transaction A
-
-
--- Transaction B
-
-
--- Transaction A
-
 -- Q2.b
+--  data
+DROP TABLE if EXISTS balancea CASCADE;
+DROP TABLE if EXISTS balanceb CASCADE;
+DELETE FROM Accounts;
+INSERT INTO Accounts (acctID, balance) VALUES (101, 1000);
+INSERT INTO Accounts (acctID, balance) VALUES (202, 2000);
+SELECT * FROM Accounts;
 /*
     Avec Repeatable READ par contre, lorsque la transaction B fait un commit, la transaction A utilise encore les anciennes valeurs de Accounts: celle qui ont été validées avant le début de la transaction A.
 */
+\set AUTCOMMIT off
+BEGIN;
+SET TRANSACTION ISOLATION LEVEL REPEATABLE READ; 
+SELECT * FROM Accounts
+WHERE balance > 500;
+
+
+-- TRANSACTION B
+\set AUTCOMMIT off
+BEGIN;
+UPDATE Accounts 
+SET balance = balance - 500
+WHERE acctID = 101;
+
+UPDATE Accounts
+SET balance = balance + 500
+WHERE acctID = 202;
+
+SELECT * FROM Accounts;
+COMMIT;
+
+-- TRANSACTION A
+SELECT * FROM Accounts
+WHERE balance > 500;
+COMMIT;
 
 --  data
 DROP TABLE if EXISTS balancea CASCADE;
@@ -196,30 +212,7 @@ INSERT INTO Accounts (acctID, balance) VALUES (101, 1000);
 INSERT INTO Accounts (acctID, balance) VALUES (202, 2000);
 SELECT * FROM Accounts;
 
--- Transaction A
-\set AUTCOMMIT off
-BEGIN;
-SET TRANSACTION
-ISOLATION LEVEL REPEATABLE READ READ ONLY;
 
--- Transaction B
-\set AUTCOMMIT off
-BEGIN;
-INSERT INTO Accounts(acctID, balance)
-VALUES (301,3000);
-
--- Transaction A
-SELECT * FROM Accounts
-WHERE balance > 1000;
-
--- Transaction B
-INSERT INTO Accounts (acctID, balance) 
-VALUES (302,3000);
-
--- Transaction A
-SELECT * FROM Accounts
-WHERE balance > 1000;
-COMMIT;
 
 /* 
     Q2.c
@@ -227,24 +220,37 @@ COMMIT;
 */
 
 /*
-    Q3.
+    Q3. Deadlock
 */
--- Q4- Deadlock
+-- Transaction A
+\set AUTCOMMIT off
+BEGIN;
+INSERT INTO Accounts(acctID, balance)
+VALUES (301,3000);
+INSERT INTO Accounts (acctID, balance) 
+VALUES (302,3000);
+COMMIT;
 
---- Transaction A
+--- Transaction B
 BEGIN;
 SET TRANSACTION ISOLATION LEVEL READ COMMITTED;
-SELECT balance - 500 as bal into balancebb From accounts where acctID=202 FOR UPDATE;
+SELECT balance - 500 as bal into balanceb 
+FROM accounts WHERE acctID=202 FOR UPDATE;
 
--- Transaction B
+-- Transaction A
 BEGIN;
 SET TRANSACTION ISOLATION LEVEL READ COMMITTED;
-SELECT balance - 500 as bal into balanceaa From accounts where acctID=302 FOR UPDATE;
+SELECT balance - 500 as bal into balancea 
+FROM accounts WHERE acctID=302 FOR UPDATE;
 
---- Transaction A
-UPDATE Accounts SET balance = (SELECT bal FROM balancebb) WHERE acctID=302;
+--- Transaction B
+UPDATE Accounts 
+SET balance = (SELECT bal FROM balanceb) 
+WHERE acctID=302;
 
--- Transaction B
-UPDATE Accounts SET balance = (SELECT balance FROM balanceaa) WHERE acctID=202;
+-- Transaction A
+UPDATE Accounts 
+SET balance = (SELECT balance FROM balancea) 
+WHERE acctID=202;
 
 -- INTERBLOCAGE DÉTECTÉ
