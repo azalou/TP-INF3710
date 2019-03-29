@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS Clinic (
     fax         Varchar(50),
     road        Varchar(50),
     city        Varchar(50),
-    province    Varchar(10),
+    province    Varchar(20),
     pCode       Varchar(10),
     PRIMARY KEY (cID)
 );
@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS Employe (
     eID         Varchar(10)     Not NULL,
     cID         Varchar(10)		Not NULL,
     NAS         Varchar(50)     Unique Not NULL,
-    Ename       Varchar(50),
+    name       Varchar(50),
     surname     Varchar(50),
     phone       Varchar(20),
     DOB         Date,
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS Employe (
     salary      Numeric(7,2),
     road        Varchar(50),
     city        Varchar(50),
-    province    Varchar(10),
+    province    Varchar(20),
     pCode       Varchar(10),
     PRIMARY KEY (eID),
     FOREIGN KEY (cID) REFERENCES Clinic(cID) ON DELETE RESTRICT ON UPDATE CASCADE
@@ -43,12 +43,12 @@ CREATE TABLE IF NOT EXISTS Employe (
 CREATE TABLE IF NOT EXISTS Owner (
     ownerID     Varchar(10)		Not NULL,
     cID         Varchar(10)		Not NULL,
-    Oname       Varchar(50),
+    name       Varchar(50),
     surname     Varchar(50),
     phone       Varchar(20),
     road        Varchar(50),
     city        Varchar(50),
-    province    Varchar(10),
+    province    Varchar(20),
     pCode       Varchar(10),
     UNIQUE (ownerID,cID),
     PRIMARY KEY (ownerID, cID),
@@ -59,6 +59,7 @@ CREATE TABLE IF NOT EXISTS Pet (
     ownerID     Varchar(10)		Not NULL,
     cID         Varchar(10)		Not NULL,
     petID       NUMERIC(2,0)     	Not NULL,
+    name       Varchar(50),
     specie      Varchar(20)     Not NULL,
     description Varchar,
     DOB         Date,
@@ -69,7 +70,7 @@ CREATE TABLE IF NOT EXISTS Pet (
 );
 
 CREATE TABLE IF NOT EXISTS Enrollment (
-    enID	Varchar(10)		Not NULL,
+    enID	      Serial		Not NULL,
     ownerID     Varchar(10)		Not NULL,
     cID         Varchar(10)		Not NULL,
     petID       NUMERIC(2,0)     	Not NULL,
