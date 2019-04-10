@@ -1,0 +1,59 @@
+.centerContainer {
+    max-width: 600px;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.templateWrapper {
+    min-height: 630px;
+    border-style: inset;
+    border-width:2px;
+    
+}
+
+.clearBoth {
+    clear: both;
+    min-height: 5px;
+}
+
+.labelName {
+    font-weight: bold;
+    font-size: large
+}
+
+.tempContDiv {
+    position: relative;
+    padding: 5px 5px 1px 5px;
+    display: inline-block;
+    width: 500px;
+}
+span.left {
+    float: left;
+}
+
+span.right {
+    float: right;
+}
+
+.nameWrapper {
+    display: block;
+}
+
+
+
+.formSubInfoText {
+    display: block;
+    font-size: small;
+    color: #5f5f5f;
+}
+
+input[type="text"], select {
+    width: 200px;
+    padding: 6px 10px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    display: inline-block;
+}

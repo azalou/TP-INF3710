@@ -1,0 +1,1715 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass book
+\begin_preamble
+\usepackage{Rapport}
+\usepackage{pdfpages}
+\newcommand{\LJoin}{\includegraphics[scale=1.3]{ljoin.eps}}
+\end_preamble
+\use_default_options true
+\maintain_unincluded_children false
+\language french
+\language_package babel
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "Droid Sans"
+\font_sans "default" "Droid Serif"
+\font_typewriter "default" "Droid Sans Mono"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\float_placement H
+\paperfontsize 12
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date true
+\justification true
+\use_refstyle 0
+\use_minted 0
+\branch k
+\selected 0
+\filename_suffix 0
+\color #faf0e6
+\end_branch
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 2cm
+\topmargin 2.54cm
+\rightmargin 2cm
+\bottommargin 2.54cm
+\secnumdepth 2
+\tocdepth 2
+\paragraph_separation skip
+\defskip medskip
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style swiss
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 2
+\paperpagestyle default
+\bullet 1 0 7 -1
+\bullet 2 0 15 -1
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+includepdf[page={1}]{page_garde_TP4.pdf}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section*
+Partie 2 - Algèbre relationnelle et SQL
+\end_layout
+
+\begin_layout Subsection*
+1.1
+\end_layout
+
+\begin_layout Enumerate
+Retrouver les détails de tous les spectacles en 2010 
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+
+\size large
+\begin_inset Formula 
+\[
+\sigma_{\text{anne=2010}}\left(\text{Spectacle}\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Retrouver le détail de tous les danseurs qui ne sont pas dans la vingtaine
+ 
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+
+\size large
+\begin_inset Formula 
+\[
+\sigma_{\text{age > 29 v age < 20}}\left(\text{Danseur}\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Retrouver le nom de tous les directeurs artistiques Canadiens nom (nationalite
+ = Canadien (DirecteurArtistique))
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+
+\size large
+\begin_inset Formula 
+\[
+\Pi_{\text{nom}}\left(\sigma_{\text{nationalite=Canada}}\left(\text{DirecteurArtistique}\right)\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Retrouver le nom de chaque danseur ainsi que les titres des Spectacles dans
+ lesquels il/elle s’est produit nom, titre (Danseur ⨝ Performance ⨝ Spectacle)
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+
+\size large
+\begin_inset Formula 
+\[
+\Pi_{\text{nom, titre}}\left(\text{Danseur}\Join\text{Performance}\Join\text{Spectacle}\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Trouver les noms de tous les danseurs qui ont dansé le rôle du ‘cygne’ ainsi
+ que l’année du spectacle
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+
+\size large
+\begin_inset Formula 
+\[
+\Pi_{\text{nom, annee}}\left(\text{Danseur}\Join\left(\sigma_{\text{role='cygne'}}\left(\text{Performance}\right)\right)\Join\text{Spectacle}\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Retrouver toutes les informations des danseurs du Spectacle ‘Opus Cactus’
+ sans opération non nécessaire (indice : vous ne pouvez pas utiliser uniquement
+ un join)
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+
+\size large
+\begin_inset Formula 
+\begin{align*}
+\text{OpusC} & \leftarrow\text{Danseur}\Join\text{Performance}\Join\sigma_{\text{titre='Opus Cactus'}}\left(\text{Spectable}\right)\\
+\text{R6} & \leftarrow\Pi_{\text{DanseurId, nom, nationalite, age}}\left(\text{OpusC}\right)
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Retrouver les titres de tous les spectacles dans lesquels les danseurs Philippe
+ et Kate ont dansé ensemble 
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+
+\size large
+\begin_inset Formula 
+\begin{align*}
+\text{S\_Phil} & \leftarrow\sigma_{\text{nom='Philippe'}}\left(\text{Danseur}\right)\Join\text{Performance}\Join\text{Spectable}\\
+\text{S\_Kat} & \leftarrow\sigma_{\text{nom='Kate'}}\left(\text{Danseur}\right)\Join\text{Performance}\Join\text{Spectable}\\
+\text{R7} & \leftarrow\Pi_{\text{titre}}\left(\text{S\_Phil}\Join_{\text{S\_Phil.SpectacleId = S\_Kat.SpectacleId}}\Join\text{S\_Kat}\right)
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+1.2
+\end_layout
+
+\begin_layout Enumerate
+Quel est l’âge moyen des danseurs ? Stockez-le dans une colonne nommée AgeMoyen.
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+
+\series bold
+\bar under
+Algèbre:
+\end_layout
+
+\begin_layout Standard
+
+\size large
+\begin_inset Formula 
+\[
+\rho_{R}\left(\text{AgeMoyen}\right)\mathfrak{I}_{\text{AVG(age)}}\left(\text{Danseur}\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+\bar under
+SQL:
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting}[language=SQL,showspaces=false, basicstyle=
+\backslash
+ttfamily,             numbers=left, numberstyle=
+\backslash
+tiny, commentstyle=
+\backslash
+color{gray}]
+\end_layout
+
+\begin_layout Plain Layout
+
+SELECT AVG(age) AS AgeMoyen FROM Danseur;
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Quels danseurs (Nom) ont dansé dans au moins un spectacle où la danseuse
+ Lucie Tremblay n’a pas dansé ?
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+
+\series bold
+\bar under
+Algèbre:
+\end_layout
+
+\begin_layout Standard
+
+\size large
+\begin_inset Formula 
+\begin{align*}
+\text{S\_Luci} & \leftarrow\sigma_{\text{nom='Lucie Tremblay'}}\left(\text{Danseur}\right)\Join\text{Performance}\\
+\text{S\_nLuci} & \leftarrow\Pi_{\text{spectacleid'}}\left(\text{Performance}\right)-\Pi_{\text{spectacleid'}}\left(\text{S\_Luci}\right)\\
+\text{R9} & \leftarrow\Pi_{\text{nom}}\left(\text{S\_nLuci}\Join\text{Danseur}\right)
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+\bar under
+SQL:
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting}[language=SQL,showspaces=false, basicstyle=
+\backslash
+ttfamily,             numbers=left, numberstyle=
+\backslash
+tiny, commentstyle=
+\backslash
+color{gray}] 	
+\end_layout
+
+\begin_layout Plain Layout
+
+SELECT nom FROM Danseur WHERE DanseurId IN 
+\end_layout
+
+\begin_layout Plain Layout
+
+   (SELECT DanseurId FROM Performance WHERE SpectacleId NOT IN 
+\end_layout
+
+\begin_layout Plain Layout
+
+   (SELECT SpectacleId FROM Performance p, Danseur d 
+\end_layout
+
+\begin_layout Plain Layout
+
+	WHERE nom = 'Lucie Tremblay' AND p.DanseurId = d.DanseurId));
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Quel est le nombre de spectacles du danseur dont l’id = 1 ? Stockez le résultat
+ dans une colonne nommée nbSpectacle.
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+
+\series bold
+\bar under
+Algèbre:
+\end_layout
+
+\begin_layout Standard
+
+\size large
+\begin_inset Formula 
+\[
+\rho_{R}\left(\text{nbSpectacle}\right)\mathfrak{I}_{\text{COUNT(SpectacleId)}}\left(\sigma_{\text{DanseurId=1}}\left(\text{Performance}\right)\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+\bar under
+SQL:
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting}[language=SQL,showspaces=false, basicstyle=
+\backslash
+ttfamily,             numbers=left, numberstyle=
+\backslash
+tiny, commentstyle=
+\backslash
+color{gray}] 	
+\end_layout
+
+\begin_layout Plain Layout
+
+SELECT COUNT(*) AS nbSpectacle FROM Performance WHERE DanseurId = 1;
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Affichez une liste des danseurs ainsi que les spectacles (ID) qui leur sont
+ associés s’ils existent, sinon affichez null.
+ L’attribut en commun ne doit pas être répété.
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+
+\series bold
+\bar under
+Algèbre:
+\end_layout
+
+\begin_layout Standard
+
+\size large
+\begin_inset Formula 
+\[
+\text{Danseur}\LJoin\Pi_{\text{DanseurId, SpectacleId}}\left(\text{Performance}\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+\bar under
+SQL:
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting}[language=SQL,showspaces=false, basicstyle=
+\backslash
+ttfamily,             numbers=left, numberstyle=
+\backslash
+tiny, commentstyle=
+\backslash
+color{gray}] 	
+\end_layout
+
+\begin_layout Plain Layout
+
+SELECT d.*, p.SpectacleId 
+\end_layout
+
+\begin_layout Plain Layout
+
+FROM Danseur d NATURAL LEFT OUTER JOIN Performance p; 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Combien de spectacles existent par catégorie ? Stockez le résultat en donnant
+ un nom à la ou les colonnes correspondantes de la relation résultat.
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+
+\series bold
+\bar under
+Algèbre:
+\end_layout
+
+\begin_layout Standard
+
+\size large
+\begin_inset Formula 
+\[
+\rho_{R}\left(\text{Catégorie,nbSpectacle}\right){}_{\text{categorie}}\mathfrak{I}_{\text{COUNT(spectacleid)}}\left(\text{Spectacle}\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+\bar under
+SQL:
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting}[language=SQL,showspaces=false, basicstyle=
+\backslash
+ttfamily,             numbers=left, numberstyle=
+\backslash
+tiny, commentstyle=
+\backslash
+color{gray}] 	
+\end_layout
+
+\begin_layout Plain Layout
+
+SELECT categorie, COUNT(*) AS nbSpectacle 
+\end_layout
+
+\begin_layout Plain Layout
+
+FROM Spectacle GROUP BY categorie;
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Quels danseurs (affichez leurs détails) n’ont participé à aucun spectacle
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+
+\series bold
+\bar under
+Algèbre:
+\end_layout
+
+\begin_layout Standard
+
+\size large
+\begin_inset Formula 
+\[
+\left(\Pi_{\text{danseurid}}\left(\text{Danseur}\right)-\Pi_{\text{danseurid}}\left(\text{Performance}\right)\right)\Join\text{Danseur}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+\bar under
+SQL:
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting}[language=SQL,showspaces=false, basicstyle=
+\backslash
+ttfamily,             numbers=left, numberstyle=
+\backslash
+tiny, commentstyle=
+\backslash
+color{gray}] 	
+\end_layout
+
+\begin_layout Plain Layout
+
+SELECT * FROM Danseur 
+\end_layout
+
+\begin_layout Plain Layout
+
+WHERE DanseurID NOT IN 
+\end_layout
+
+\begin_layout Plain Layout
+
+(SELECT DanseurID FROM Performance);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section*
+Partie 3 - Transactions
+\end_layout
+
+\begin_layout Enumerate
+.
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Que se passe-t-il quand vous exécutez ces deux transactions concurrentes
+ ? Quel est le problème ?
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+Ici, le problème est que la transaction A est complètement ignorée.
+ Seule la valeur de la transaction B est prise en compte à la fin.
+ En effet, la transaction A retire 200$ du compte et la transaction b retire
+ 500$.
+ On s'attendrait donc que le résultat final soit une réduction de 700$ du
+ compte.
+ Mais on voit qu'on a juste le retrait de 500 de la transaction B dans l'état
+ final.
+ Ceci est dû au fait que la mise à jour du compte par la transaction B s'est
+ faite sur la valeur lue précédemment par la transaction B.
+ Une valeur qui avait été lue avant que la transaction A n'ait validé sa
+ transaction.
+ Ainsi, lorsque la transaction A écrit sur la table et valide, la valeur
+ se fait écrasée par la transaction B.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "48col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+illus{
+\end_layout
+
+\end_inset
+
+Transaction A: Elle commence et termine avant la transaction B
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}{
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename TP4/exercice_note/P3_Q1a_TA.png
+	lyxscale 50
+	width 80text%
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "48col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+illus{
+\end_layout
+
+\end_inset
+
+Transaction B: lorsqu’elle valide, elle écrase la valeur du compte de la
+ transaction A
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}{
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename TP4/exercice_note/P3_Q1a_TB.png
+	lyxscale 50
+	width 80text%
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Comment pourrions-nous nous assurer que les résultats soient cohérents ?
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+Pour éviter le problème, la transaction B doit attendre que la transaction
+ A écrit la valeur sur le compte avant que la transaction B la lise.
+ On doit donc verrouiller le tuple que la transaction A mettra à jour.
+ On peut le faire avec un SELECT … FOR UPDATE.
+ Ainsi la transaction B ne lira pas tout de suite la valeur du compte et
+ attendra la fin de la transaction A avant de le faire.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "48col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+illus{
+\end_layout
+
+\end_inset
+
+Transaction A: Elle commence et termine avant la transaction B
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}{
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename TP4/exercice_note/P3_Q1b_TA.png
+	lyxscale 50
+	width 80text%
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "48col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+illus{
+\end_layout
+
+\end_inset
+
+Transaction B: lorsqu’elle écrit, elle utilise, comme attendu, la valeur
+ du compte résultant de A
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}{
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename TP4/exercice_note/P3_Q1b_TB.png
+	lyxscale 50
+	width 80text%
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Enumerate
+.
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Quel problème constatez-vous avec READ COMMITED? 
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+Quand la tranaction A utilise l'isolation READ COMMITTED, si la transaction
+ B fait un commit pendant que A est encore en cours, la transaction A lit
+ des valeurs différentes lorsqu’elle fait des SELECT sur les tuples que
+ B écrit et valide.
+ En effet: le deuxième SELECT utilise la nouvelle valeur des montants dans
+ les comptes comme écrit par B.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "48col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+illus{
+\end_layout
+
+\end_inset
+
+Transaction A: La valeur du select dépend des valeurs qui ont été validée
+ concouramment par B
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}{
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename TP4/exercice_note/P3_Q2a_TA.png
+	lyxscale 50
+	width 80text%
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "48col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+illus{
+\end_layout
+
+\end_inset
+
+Transaction B: Transfert entre les deux comptes
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}{
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename TP4/exercice_note/P3_Q2a_TB.png
+	lyxscale 50
+	width 80text%
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Que se passe-t-il si changez le niveau d’isolation de la transaction A à
+ REPEATABLE READ?
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+Avec Repeatable READ par contre, lorsque la transaction B fait un commit,
+ la transaction A utilise encore les anciennes valeurs de Accounts: celle
+ qui ont été validées avant le début de la transaction A.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "48col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+illus{
+\end_layout
+
+\end_inset
+
+Transaction A: elle lit toujours les mêmes valeurs sur les même tuples
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}{
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename TP4/exercice_note/P3_Q2b_TA.png
+	lyxscale 50
+	width 80text%
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "48col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+illus{
+\end_layout
+
+\end_inset
+
+Transaction B: transfert entre les deux comptes
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}{
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename TP4/exercice_note/P3_Q2b_TB.png
+	lyxscale 50
+	width 80text%
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Quel problème constatez-vous avec REPEATABLE READ READ ONLY?
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+Similairement lorsqu'on utilise l'isolation REPEATABLE READ en mode Lecture
+ seule, La transaction A voit les valeurs de la table qui ont été validée
+ avant que la transaction commence.
+ Donc quand la transaction B valide sa transaction, ceci est toujours invisible
+ à la transaction A.
+ Le mode “read only” n'affecte que la transaction A, l'empéchant de modifier
+ les tables.
+ La transaction B peut encore changer les données des tables.
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Enumerate
+Interblocage: 
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+Nous voyons dans les figures qui suivent une situation d’interblocage.
+ Le système abandonne la transaction A pour débloquer les transactions.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "48col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+illus{
+\end_layout
+
+\end_inset
+
+Transaction A: Détection de l’interblocage
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}{
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename TP4/exercice_note/P3_Q3_TA.png
+	lyxscale 50
+	width 80text%
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "48col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+illus{
+\end_layout
+
+\end_inset
+
+Transaction B: la dernière mise à jour cause une situation d’interblocage
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}{
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename TP4/exercice_note/P3_Q3_TB.png
+	lyxscale 50
+	width 80text%
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting}[language=SQL,showspaces=false, basicstyle=
+\backslash
+ttfamily,             numbers=left, numberstyle=
+\backslash
+tiny, commentstyle=
+\backslash
+color{gray}] 	
+\end_layout
+
+\begin_layout Plain Layout
+
+-- Transaction A 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+set AUTCOMMIT off BEGIN; 
+\end_layout
+
+\begin_layout Plain Layout
+
+INSERT INTO Accounts(acctID, balance) 
+\end_layout
+
+\begin_layout Plain Layout
+
+VALUES (301,3000); 
+\end_layout
+
+\begin_layout Plain Layout
+
+INSERT INTO Accounts (acctID, balance)  
+\end_layout
+
+\begin_layout Plain Layout
+
+VALUES (302,3000); 
+\end_layout
+
+\begin_layout Plain Layout
+
+COMMIT;
+\end_layout
+
+\begin_layout Plain Layout
+
+-- Transaction B 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+set AUTCOMMIT off
+\end_layout
+
+\begin_layout Plain Layout
+
+BEGIN; 
+\end_layout
+
+\begin_layout Plain Layout
+
+SET TRANSACTION ISOLATION LEVEL READ COMMITTED; 
+\end_layout
+
+\begin_layout Plain Layout
+
+SELECT balance - 500 as bal into balanceb  
+\end_layout
+
+\begin_layout Plain Layout
+
+FROM accounts WHERE acctID=202 FOR UPDATE;
+\end_layout
+
+\begin_layout Plain Layout
+
+-- Transaction A 
+\end_layout
+
+\begin_layout Plain Layout
+
+BEGIN; 
+\end_layout
+
+\begin_layout Plain Layout
+
+SET TRANSACTION ISOLATION LEVEL READ COMMITTED; 
+\end_layout
+
+\begin_layout Plain Layout
+
+SELECT balance - 500 as bal into balancea  
+\end_layout
+
+\begin_layout Plain Layout
+
+FROM accounts WHERE acctID=302 FOR UPDATE;
+\end_layout
+
+\begin_layout Plain Layout
+
+-- Transaction B 
+\end_layout
+
+\begin_layout Plain Layout
+
+UPDATE Accounts  
+\end_layout
+
+\begin_layout Plain Layout
+
+SET balance = (SELECT bal FROM balanceb)  
+\end_layout
+
+\begin_layout Plain Layout
+
+WHERE acctID=302;
+\end_layout
+
+\begin_layout Plain Layout
+
+-- Transaction A 
+\end_layout
+
+\begin_layout Plain Layout
+
+UPDATE Accounts  
+\end_layout
+
+\begin_layout Plain Layout
+
+SET balance = (SELECT balance FROM balancea) 
+\end_layout
+
+\begin_layout Plain Layout
+
+WHERE acctID=202;
+\end_layout
+
+\begin_layout Plain Layout
+
+-- INTERBLOCAGE DETECTE
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\end_body
+\end_document

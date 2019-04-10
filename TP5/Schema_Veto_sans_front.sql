@@ -32,10 +32,7 @@ CREATE TABLE IF NOT EXISTS Employe (
     Esex         SEX,
     Eposition    Varchar(50),
     salary      Numeric(7,2),
-    road        Varchar(50),
-    city        Varchar(50),
-    province    Varchar(20),
-    pCode       Varchar(10),
+    address     Text,
     PRIMARY KEY (eID),
     FOREIGN KEY (cID) REFERENCES Clinic(cID) ON DELETE RESTRICT ON UPDATE CASCADE
 );
@@ -43,13 +40,9 @@ CREATE TABLE IF NOT EXISTS Employe (
 CREATE TABLE IF NOT EXISTS Owner (
     ownerID     Varchar(10)		Not NULL,
     cID         Varchar(10)		Not NULL,
-    name       Varchar(50),
-    surname     Varchar(50),
+    name       Varchar(100),
     phone       Varchar(20),
-    road        Varchar(50),
-    city        Varchar(50),
-    province    Varchar(20),
-    pCode       Varchar(10),
+    address        Text,
     UNIQUE (ownerID,cID),
     PRIMARY KEY (ownerID, cID),
     FOREIGN KEY (cID) REFERENCES Clinic(cID) ON DELETE RESTRICT ON UPDATE CASCADE
@@ -106,7 +99,7 @@ CREATE TABLE IF NOT EXISTS ProposedTreatment(
     ownerID     Varchar(10)		Not NULL,
     cID         Varchar(10)		Not NULL,
     petID       NUMERIC(2,0)     	Not NULL,
-    qtity       INTEGER         Not NULL,
+    quantity       INTEGER         Not NULL,
     sDate       Date,
     eDate       Date,
     PRIMARY KEY (treatID),

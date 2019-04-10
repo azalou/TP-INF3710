@@ -31,6 +31,7 @@ BEGIN
             PRIMARY KEY (sID, cID, date_time)
         );
         
+
         SELECT OLD.sID, OLD.cID, OLD.secID, OLD.note INTO Student_num, Course_num, Section_num, grade;
             
         INSERT INTO universityDB.Audit VALUES (Student_num, Course_num, Section_num, grade, CURRENT_TIMESTAMP);

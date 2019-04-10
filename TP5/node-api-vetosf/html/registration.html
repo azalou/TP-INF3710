@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html ng-app>
+  <head>
+    <meta charset="UTF-8">
+    <title>Registrar</title>
+    <link rel="stylesheet" href="css/forms.css" />
+  </head>
+
+<div class="centerContainer ">
+    <div id="formDiv">
+        <form name="ownerform" id="ownerform" _lpchecked="1" action="/owner_save" method="POST">
+            <div class="templateWrapper" id="formRedirectURL">
+                <h2 class="frmTitle"><em>Owner registration form</em></h2>
+                <div class="clearBoth"></div>
+
+                <div id="formBodyDiv" class="formRelative subContWrap topAlign">
+                    <ul elname="formBodyULName" class="ulNoStyle" page_no="1" needpagedata="true">
+                            <div id="clinicdetail" class="wrapDiv" >
+                                    <li style="width: 200px;">
+                                        <label for="clinicID" class="labelName"> Clinic</label>
+                                        <select id="clinicID"></select>
+                                    </li>
+                            </div>
+                        
+                        <li >
+                            <label for="namedetail" class="labelName">Name</label>
+                            <div id="namedetail" class="wrapDiv twoType">
+                                <div class="nameWrapper">
+                                    <span class="topAlign">
+                                        <input type="text" maxlength="255" elname="First" name="Name_First" value="" >
+                                        <label class="formSubInfoText">First</label>
+                                        <input type="text" name="phone" elname="phone" maxlength="20" placeholder="+1 111 111-1111" value="">
+                                        <label class="formSubInfoText">Phone</label>
+                                    </span>
+                                    <span class="topAlign">
+                                        <input type="text" maxlength="255" elname="Last" name="Name_Last" value="">
+                                        <label class="formSubInfoText">Last</label>
+                                        <select name="ownerID">
+                                            <option value="new">new</option>
+                                        </select>
+                                        <label class="formSubInfoText">ownerID</label>
+                                    </span>
+                                    <div class="clearBoth"></div>
+                                </div>
+                                <p class="errorMessage" elname="error" id="error-Name"></p>
+                            </div>
+                            <div class="clearBoth"></div>
+                        </li>
+
+                        <li class="address" elname="livefield-elem" comptype="8" needdata="true" id="Address-li" compname="Address" linkname="Address" isvisible="true" mandatory="false" page_no="1" page_link_name="Page">
+                            <label class="labelName">Address</label>
+                            <div class="clearBoth"></div>
+                            <div class="wrapDiv">
+                                <div class="twoType">
+                                    <span>
+                                        <input type="text" maxlength="255" name="Address_Street" value="" >
+                                        <!-- Display name of 'AddressLine1' component of 'Address' field. -->
+                                        <label class="formSubInfoText">Street Address</label>
+                                    </span>
+                                    <span> 
+                                        <input type="text" maxlength="255" name="Address_City" value="">
+                                        <!-- Display name of 'City' component of 'Address' field. -->
+                                        <label class="formSubInfoText">City</label>
+                                    </span>
+                                </div>
+                                <div class="clearBoth"></div>
+                                <span>
+                                    <!-- <input type="text" maxlength="255" name="Address_Region" value=""> -->
+                                    <select name="Address_Region">
+                                        <option value="AB">Alberta</option>
+                                        <option value="BC">British Columbia</option>
+                                        <option value="MB">Manitoba</option>
+                                        <option value="NB">New Brunswick</option>
+                                        <option value="NL">Newfoundland and Labrador</option>
+                                        <option value="NS">Nova Scotia</option>
+                                        <option value="ON">Ontario</option>
+                                        <option value="PE">Prince Edward Island</option>
+                                        <option value="QC">Quebec</option>
+                                        <option value="SK">Saskatchewan</option>
+                                        <option value="NT">Northwest Territories</option>
+                                        <option value="NU">Nunavut</option>
+                                        <option value="YT">Yukon</option>
+                                    </select>
+                                    <!-- Display name of 'Region' component of 'Address' field. -->
+                                    <label class="formSubInfoText">Province</label>
+                                </span>
+                                <span> 
+                                    <input type="text" maxlength="255" name="Address_ZipCode" value="">
+                                    <!-- Display name of 'ZipCode' component of 'Address' field. -->
+                                    <label class="formSubInfoText">Postal / Zip Code</label>
+                                </span>
+                                <div class="clearBoth"></div>
+                                <p class="errorMessage" elname="error" id="error-Address"></p>
+                            </div>
+                            <div class="clearBoth"></div>
+                        </li>  
+                    </ul>
+                </div>
+
+                <ul elname="footer" class="footerWrapper formRelative" page_no="1" page_count="1" page_link_name="Page">
+                    <li style="overflow:visible; position: relative;" class="btnAllign fmFooter" id="formAccess" elname="0">
+                        <div class="wrapDiv" style="background-color: transparent; ">
+                            <input type="submit" value="Submit">
+                        </div>
+                        <div class="clearBoth"></div>
+                    </li>
+                </ul>
+                
+                </div>
+                <!-- Uncomment the following Code to enable automation location based value filling for GeoLocation Fields -->
+                <!-- Set the mapquestURL from zohoforms.properties -->
+                <!--   -->
+                <!--Div to show error for unconfirmed users -->
+                <div id="errorDiv" style="display:none" class="errorMsgWrapper"><div class="flLeft errorIcon"></div>
+                <div class="errorMsgCont"><h2>Error Occurred!</h2>
+                <span id="errorMsgSpan">You haven't verified your email yet, click<a href="javascript:;" onclick="ZFUtil.resendMail('0');"> here </a> to receive a verification email.</span></div>
+                <div class="clearBoth"></div>
+            </div>
+
+
+        </form>
+    </div>
+    <!-- 'formDiv' ends -->
+</div>
+
+<div class="centerContainer ">
+        <form name="petform" id="petform" _lpchecked="1">
+                <div class="templateWrapper" id="formRedirectURL">
+                    <h2 class="frmTitle"><em>Pet details</em></h2>
+                    <div class="clearBoth"></div>
+                    <div style="width: 70px">
+                            <select name="select_pet">
+                                <option value="new">new</option>
+                            </select>
+                        </div>
+                            <div id="petnamedetail" class="wrapDiv twoType">
+                                <div class="nameWrapper">
+                                    <span>
+                                        <input type="text" maxlength="255" elname="petName" name="petName" value="" >
+                                        <label class="formSubInfoText">Name</label>
+                                    </span>
+                                    <span>
+                                        <input type="text" maxlength="255" elname="specie" name="specie" value="">
+                                        <label class="formSubInfoText">specie</label>
+                                    </span>
+                                    <div class="clearBoth"></div>
+                                    <span>
+                                        <div>
+                                            <textarea class="Description" type="text" name="petDesc" elname="petDesc" maxlength="20" value=""></textarea>
+                                            <label class="formSubInfoText">Description</label>
+                                        </div>
+                                    </span>
+                                    <span class="topAlign">
+                                        <input type="date" name="petDesc" elname="petDesc" maxlength="20" value="">
+                                        <label class="formSubInfoText">Date of birth</label>
+                                        <select type="text" name="petStatus" elname="petStatus" maxlength="20" value="">
+                                            <option value="alive">alive</option>
+                                            <option value="dead">dead</option>
+                                        </select>
+                                        <label class="formSubInfoText">Status</label>
+                                        </span>
+                                </div>
+                            </div>
+                            <div class="wrapDiv" style="background-color: transparent; ">
+                                    <input type="submit" value="Submit">
+                                </div>
+                                <div class="clearBoth"></div>
+                </div>
+        </form>
+</div>
+</html>

@@ -61,7 +61,6 @@ COMMIT;
   -- Q1b.
  /*
     On doit verrouiller la table à la ligne qui sera modifiée. On peut utiliser un lock table ou, mieux, select ....... for update;
-    18662124318
  */
 DROP TABLE if EXISTS balancea CASCADE;
 DROP TABLE if EXISTS balanceb CASCADE;
@@ -232,6 +231,7 @@ VALUES (302,3000);
 COMMIT;
 
 --- Transaction B
+\set AUTCOMMIT off
 BEGIN;
 SET TRANSACTION ISOLATION LEVEL READ COMMITTED;
 SELECT balance - 500 as bal into balanceb 

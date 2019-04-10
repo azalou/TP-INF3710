@@ -38,7 +38,6 @@ export class DatabaseService {
 
     public getAllFromTable(tableName: string): Promise<pg.QueryResult> {
         this.pool.connect();
-
         return this.pool.query(`SELECT * FROM HOTELDB.${tableName};`);
     }
 

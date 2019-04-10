@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Registrar</title>
+    <link rel="stylesheet" href="css/forms.css" />
+  </head>
+
+<div class="centerContainer ">
+<div id="formDiv">
+    <form name="form" id="form" _lpchecked="1"><input type="hidden" name="formName" value="Petregistrationform" id="formName">
+        
+        <div class="templateWrapper" id="formRedirectURL">
+
+            <ul class="tempHeadBdr formRelative">
+            <li class="tempHeadContBdr"><span id="logo-formheader" class="formLogo" style="display: none"><img id="logo-formheader-img" src=""></span> 
+            <h2 class="frmTitle"><em>Owners registration form</em></h2>
+            <p class="frmDesc"></p>
+            <div class="clearBoth"></div>
+            </li></ul>
+
+            <div id="formBodyDiv" class="formRelative subContWrap topAlign">
+
+            <ul elname="formBodyULName" class="ulNoStyle" page_no="1" needpagedata="true">
+
+            <li class="tempFrmWrapper name namemedium" elname="livefield-elem" comptype="7" needdata="true" id="Name-li" compname="Name" linkname="Name" isvisible="true" mandatory="false" page_no="1" page_link_name="Page">
+                <label class="labelName">Name</label>
+                <div class="tempContDiv twoType">
+                    <div class="nameWrapper">
+                        <span class="left">  
+                            <input type="text" maxlength="255" elname="First" name="Name_First" value="" >
+                            <label class="formSubInfoText">First</label>
+                        </span>
+                        <span class="right">
+                            <input type="text" maxlength="255" elname="Last" name="Name_Last" value="">
+                            <label class="formSubInfoText">Last</label>
+                        </span>
+                        <div class="clearBoth"></div>
+                    </div>
+                    <p class="errorMessage" elname="error" id="error-Name"></p>
+                </div>
+                <div class="clearBoth"></div>
+            </li>
+
+            <li class="tempFrmWrapper phone small" elname="livefield-elem" comptype="11" id="PhoneNumber-li" needdata="true" compname="PhoneNumber" linkname="PhoneNumber" isvisible="true" mandatory="false" page_no="1" page_link_name="Page"> 
+                <label class="labelName">Phone</label>
+                <div class="tempContDiv" elname="phoneFormatElem" phoneformat="INTERNATIONAL">
+                    <div>
+                        <input type="text" name="countrycode" elname="countrycode" maxlength="20" placeholder="+1 111 111-1111" value="">
+                        <div class="clearBoth">
+                    </div>
+                </div>
+                <p class="errorMessage" elname="error" id="error-PhoneNumber"></p>
+                </div>
+                <div class="clearBoth"></div>
+            </li>
+            
+
+            <li class="tempFrmWrapper address  addrlarge" elname="livefield-elem" comptype="8" needdata="true" id="Address-li" compname="Address" linkname="Address" isvisible="true" mandatory="false" page_no="1" page_link_name="Page">
+
+            <div class="arrowNav"></div>
+            <label class="labelName">Address
+
+            </label>
+            <div class="tempContDiv address">
+                <div class="addrCont">
+                    <span class="left" width="100%"> 
+                        <input type="text" maxlength="255" name="Address_AddressLine1" value="">
+                        <!-- Display name of 'AddressLine1' component of 'Address' field. -->
+                        <label class="formSubInfoText">Street Address</label>
+                    </span>
+                    
+                    <span class="left"> 
+                        <input type="text" maxlength="255" name="Address_AddressLine2" value="">
+                        <!-- Display name of 'AddressLine2' component of 'Address' field. -->
+                        <label class="formSubInfoText">Address Line 2</label>
+                    </span>
+
+                    <span class="right"> 
+                        <input type="text" maxlength="255" name="Address_City" value="">
+                        <!-- Display name of 'City' component of 'Address' field. -->
+                        <label class="formSubInfoText">City</label> 
+                    </span>
+                    
+                    <span class=""> 
+                        <input type="text" maxlength="255" name="Address_Region" value="">
+                        <!-- Display name of 'Region' component of 'Address' field. -->
+                        <label class="formSubInfoText">Province</label>
+                    </span>
+                    
+                    <span class="flLeft addtwo"> 
+                        <input type="text" maxlength="255" name="Address_ZipCode" value="">
+                        <!-- Display name of 'ZipCode' component of 'Address' field. -->
+                        <label class="formSubInfoText">Postal / Zip Code</label>
+                    </span>
+
+                    <div class="clearBoth"></div>
+            <p class="errorMessage" elname="error" id="error-Address"></p>
+                </div>
+
+            </div>
+
+            <div class="clearBoth"></div>
+            </li>  
+
+            </ul>
+            </div>
+
+            <ul elname="footer" class="footerWrapper formRelative" page_no="1" page_count="1" page_link_name="Page">
+                <li style="overflow:visible; position: relative;" class="btnAllign fmFooter" id="formAccess" elname="0">
+
+                    <div class="pageFotDef">
+                        <div class="alignSubmit">
+                            <div class="formRelative inlineBlock submitWrapper"><button class="fmSmtButton submitColor fmSmtButtom" elname="submit" value="submit">
+                            <em>Submit</em>
+                            </button>
+                        </div>
+                    </div>
+                    </div>
+
+                    <div class="clearBoth"></div>
+
+                </li>
+            </ul>
+            
+            </div>
+            <!-- Uncomment the following Code to enable automation location based value filling for GeoLocation Fields -->
+            <!-- Set the mapquestURL from zohoforms.properties -->
+            <!--   -->
+
+            <!--Div to show error for unconfirmed users -->
+            <div id="errorDiv" style="display:none" class="errorMsgWrapper"><div class="flLeft errorIcon"></div>
+            <div class="errorMsgCont"><h2>Error Occurred!</h2>
+            <span id="errorMsgSpan">You haven't verified your email yet, click<a href="javascript:;" onclick="ZFUtil.resendMail('0');"> here </a> to receive a verification email.</span></div>
+            <div class="clearBoth"></div>
+        </div>
+
+
+        </div>
+        <!-- 'formRedirectURL' ends -->
+    </form>
+</div>
+<!-- 'formDiv' ends -->
+</div>
+</html>
