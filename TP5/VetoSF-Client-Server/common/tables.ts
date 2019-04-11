@@ -9,8 +9,8 @@ export interface Clinic {
 }
 
 export interface Employe {
-    "eID": string;
-    "cID": string;
+    "eid": string;
+    "cid": string;
     "nas": string;
     "name": string;
     "surname": string;
@@ -31,9 +31,9 @@ export interface Owner {
 }
 
 export interface Pet {
-    "ownerID": string;
-    "cID": string;
-    "petID": string;
+    "ownerid": string;
+    "cid": string;
+    "petid": string;
     "name": string;
     "specie": string;
     "description": string;
@@ -42,16 +42,16 @@ export interface Pet {
 }
 
 export interface Treatment {
-    "treatID": string;
+    "treatid": string;
     "description": string;
     "tcost": string;
 }
 
 export interface Physical_exam {
-    "eID": string;
-    "ownerID": string;
-    "cID": string;
-    "petID": string;
+    "eid": string;
+    "ownerid": string;
+    "cid": string;
+    "petid": string;
     "examID": string;
     "examDate": Date;
     "examTime": string;
@@ -59,11 +59,11 @@ export interface Physical_exam {
 }
 
 export interface ProposedTreatment {
-    "treatID": string;
+    "treatid": string;
     "examID": string;
-    "ownerID": string;
-    "cID": string;
-    "petID": string;
+    "ownerid": string;
+    "cid": string;
+    "petid": string;
     "quantity": string;
     "sDate": Date;
     "eDate": Date;
@@ -71,8 +71,8 @@ export interface ProposedTreatment {
 
 export interface Enrollment {
     "enID": string;
-    "ownerID": string;
-    "cID": string;
-    "petID": string;
+    "ownerid": string;
+    "cid": string;
+    "petid": string;
     "enrol_date": Date;
 }
