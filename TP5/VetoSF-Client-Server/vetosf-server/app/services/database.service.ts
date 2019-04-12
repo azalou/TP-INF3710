@@ -21,7 +21,6 @@ export class DatabaseService {
     private pool: pg.Pool = new pg.Pool(this.connectionConfig);
 
     /*
-
         METHODES DE DEBUG
     */
     public createSchema(): Promise<pg.QueryResult> {
@@ -51,51 +50,18 @@ export class DatabaseService {
     public getClinicId(): Promise<pg.QueryResult> {
         this.pool.connect();
         console.log("getting clinic PKs");
-        
-        
         return this.pool.query('SELECT cid FROM VETOSANSFRONTIERE.Clinic;');
-    }
-
-    /*public createClinic(hotelId: string, hotelName: string, city: string): Promise<pg.QueryResult> {
-        this.pool.connect();
-        const values: string[] = [
-            hotelId,
-            hotelName,
-            city
-        ];
-        const queryText: string = `INSERT INTO VETOSANSFRONTIERE.Clinic VALUES($1, $2, $3);`;
-
-        return this.pool.query(queryText, values);
-    }*/
-
-    // Owner
-    public getOwnerFromClinic(cID: string, name: string): Promise<pg.QueryResult> {
-        this.pool.connect();
-
-        let query: string =
-        `SELECT * FROM VETOSANSFRONTIERE.Owner
-        WHERE cID=\'${cID}\'`;
-        if (name !== undefined) {
-            query = query.concat('AND ');
-            query = query.concat(`typeOwner=\'${name}\'`);
-        }
-        console.log(query);
-
-        return this.pool.query(query);
     }
 
     public getOwnerFromClinicParams(params: object): Promise<pg.QueryResult> {
         this.pool.connect();
-
         let query: string = 'SELECT * FROM VETOSANSFRONTIERE.Owner \n';
         const keys: string[] = Object.keys(params);
         if (keys.length > 0) {
             query = query.concat(`WHERE ${keys[0]} =\'${params[keys[0]]}\'`);
         }
-
         // On enleve le premier element
         keys.shift();
-
         // tslint:disable-next-line:forin
         for (const param in keys) {
             const value: string = keys[param];
@@ -104,11 +70,35 @@ export class DatabaseService {
                 query = query.replace('\'', '');
             }
         }
-
         console.log(query);
+        return this.pool.query(query);
+    }
+
+    // Owner
+    public getOwnerFromClinic(cID: string, oID: string): Promise<pg.QueryResult> {
+        this.pool.connect();
+        let query: string =
+        `SELECT * FROM VETOSANSFRONTIERE.Owner
+        WHERE cID=\'${cID}\'`;
+        if (oID !== undefined) {
+            query = query.concat(`AND ownerid=\'${oID}\'`);
+        }
+        console.log(query);
+        return this.pool.query(query);
+    }
+    
+    /**
+     * getOwnerIdsFromClinic
+clinicid: string : Promise<pg.QueryResults>    */
+    public getOwnerIdsFromClinic(clinicid: string): Promise<pg.QueryResult> {
+        this.pool.connect();
+        console.log(`Getting Owners PKs from \'${clinicid}\'`);
+        
+        let query: string = 
+        `SELECT ownerid FROM VETOSANSFRONTIERE.Owner
+        WHERE cID=\'${clinicid}\'`
 
         return this.pool.query(query);
-
     }
 
     public createOwner(Owner: Owner): Promise<pg.QueryResult> {
@@ -125,41 +115,4 @@ export class DatabaseService {
         return this.pool.query(queryText, values);
     }
 
-    // GUEST
-    /*public createGuest(guestId: string,
-                       nas: string,
-                       guestName: string,
-                       gender: string,
-                       guestCity: string): Promise<pg.QueryResult> {
-        this.pool.connect();
-        const values: string[] = [
-            guestId,
-            nas,
-            guestName,
-            gender,
-            guestCity
-        ];
-        const queryText: string = `INSERT INTO VETOSANSFRONTIERE.Owner VALUES($1,$2,$3,$4,$5);`;
-
-        return this.pool.query(queryText, values);
-    }
-
-    // BOOKING
-    public createBooking(hotelId: string,
-                         guestId: string,
-                         dateFrom: Date,
-                         dateTo: Date,
-                         OwnerId: string): Promise<pg.QueryResult> {
-        this.pool.connect();
-        const values: string[] = [
-            hotelId,
-            guestId,
-            dateFrom.toString(),
-            dateTo.toString(),
-            OwnerId
-        ];
-        const queryText: string = `INSERT INTO VETOSANSFRONTIERE.Owner VALUES($1,$2,$3,$4,$5);`;
-
-        return this.pool.query(queryText, values);
-        }*/
 }

@@ -6,6 +6,20 @@
     background-color: #f6ffff;
 }
 
+mat-form-field {
+    display: inline-block;
+    margin: 0 0 0 0;
+    padding: 0;
+}
+
+mat-form-field .selectInput {
+    margin: 0 0 0 0;
+    padding: 0;
+    height: 30px;
+    position: relative;
+    top: -12px
+}
+
 .frmTitle {
     margin: 8px 0 0 8px;
     text-align: center;
@@ -55,12 +69,20 @@ li {
     font-size: x-small;
 }
 
-.twoType span {
+.twoType span  {
     display: inline-block;
     margin-left: 10px;
     margin-right: 10px;
     width: 45%;
 }
+
+.twoType .d1 {
+    display: inline-block;
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 45%;
+}
+
 
 .nameWrapper {
     display: block;

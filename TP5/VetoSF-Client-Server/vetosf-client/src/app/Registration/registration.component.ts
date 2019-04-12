@@ -1,6 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { CommunicationService } from "../communication.service";
-import { FormGroup, FormsModule } from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { startWith, map } from 'rxjs/operators';
+import { Owner } from '../../../../common/tables';
 
 @Component({
   selector: "app-registration",
@@ -8,26 +11,30 @@ import { FormGroup, FormsModule } from '@angular/forms';
   styleUrls: ["./registration.component.css"]
 })
 
-export class RegistrationComponent implements OnInit {
-  public constructor(private communicationService: CommunicationService) { }
 
+export class RegistrationComponent implements OnInit {
+  
+  public searchOwnerId: FormControl = new FormControl();
   public ClinicPKs: string[] = [];
-  public ownerForm: FormGroup;
+  public ownerPks: string[] = [];
+  public ownerFiltered: Observable<string[]>;
   public duplicateError: boolean = false;
   public invalidClinicPK: boolean = false;
+  public selectedClinicID: string;
+  public selectedOwnerID: string;
+  public currentOwner: Owner;
+
+  public constructor(private communicationService: CommunicationService) { }
   ngOnInit(): void {
     this.communicationService.getClinicsPK().subscribe((clinicsID: string[]) => {
-      /*this.ClinicPKs = clinicsID;
-      console.log("test");
-      
-      console.log(this.ClinicPKs);
-      */
      this.ClinicPKs = clinicsID;
-     console.log(clinicsID);
-      /*this.ownerForm = new FormGroup({
-        clinicID: new FormControl(),
-        fName: new FormControl()
-      });*/
+     this.ownerFiltered = this.searchOwnerId.valueChanges
+     .pipe(
+       startWith(''),
+       map(value => this._filter(value))
+     );
+     
+     console.log(this.ClinicPKs);
       console.log(this.duplicateError);
     });
   }
@@ -41,12 +48,39 @@ export class RegistrationComponent implements OnInit {
         "address"   : address
     };
 
-
     this.communicationService.insertOwner(owner).subscribe((res: number) => {
         if (res > 0) {
             this.communicationService.filter("update");
         }
         this.duplicateError = (res === -1);
     });
+  }
+
+  /**
+   * onSelectedClinic
+clinic: string : void   */
+  public onSelectedClinic(clinicid: string): void  {
+    this.selectedClinicID = clinicid;
+    this.communicationService.getOwnerPKFromClinicID(clinicid).subscribe((ownersID: string[]) => {
+      this.ownerPks = ownersID;
+      console.log(this.ownerPks);
+      this.ownerFiltered = this.searchOwnerId.valueChanges
+     .pipe(
+       startWith(''),
+       map(value => this._filter(value))
+     );
+    });
+  };
+
+  public fillOwnerDetails(ownerid: string) : void {
+    if (this.ownerPks.indexOf(ownerid) !== -1) {
+      
+    }
+  };
+
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.ownerPks.filter(option => option.toLowerCase().includes(filterValue));
   }
 }

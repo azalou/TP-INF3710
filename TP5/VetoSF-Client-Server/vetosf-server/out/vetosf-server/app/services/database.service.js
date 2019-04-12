@@ -23,46 +23,8 @@ let DatabaseService = class DatabaseService {
             keepAlive: true
         };
         this.pool = new pg.Pool(this.connectionConfig);
-        // GUEST
-        /*public createGuest(guestId: string,
-                           nas: string,
-                           guestName: string,
-                           gender: string,
-                           guestCity: string): Promise<pg.QueryResult> {
-            this.pool.connect();
-            const values: string[] = [
-                guestId,
-                nas,
-                guestName,
-                gender,
-                guestCity
-            ];
-            const queryText: string = `INSERT INTO VETOSANSFRONTIERE.Owner VALUES($1,$2,$3,$4,$5);`;
-    
-            return this.pool.query(queryText, values);
-        }
-    
-        // BOOKING
-        public createBooking(hotelId: string,
-                             guestId: string,
-                             dateFrom: Date,
-                             dateTo: Date,
-                             OwnerId: string): Promise<pg.QueryResult> {
-            this.pool.connect();
-            const values: string[] = [
-                hotelId,
-                guestId,
-                dateFrom.toString(),
-                dateTo.toString(),
-                OwnerId
-            ];
-            const queryText: string = `INSERT INTO VETOSANSFRONTIERE.Owner VALUES($1,$2,$3,$4,$5);`;
-    
-            return this.pool.query(queryText, values);
-            }*/
     }
     /*
-
         METHODES DE DEBUG
     */
     createSchema() {
@@ -87,29 +49,6 @@ let DatabaseService = class DatabaseService {
         console.log("getting clinic PKs");
         return this.pool.query('SELECT cid FROM VETOSANSFRONTIERE.Clinic;');
     }
-    /*public createClinic(hotelId: string, hotelName: string, city: string): Promise<pg.QueryResult> {
-        this.pool.connect();
-        const values: string[] = [
-            hotelId,
-            hotelName,
-            city
-        ];
-        const queryText: string = `INSERT INTO VETOSANSFRONTIERE.Clinic VALUES($1, $2, $3);`;
-
-        return this.pool.query(queryText, values);
-    }*/
-    // Owner
-    getOwnerFromClinic(cID, name) {
-        this.pool.connect();
-        let query = `SELECT * FROM VETOSANSFRONTIERE.Owner
-        WHERE cID=\'${cID}\'`;
-        if (name !== undefined) {
-            query = query.concat('AND ');
-            query = query.concat(`typeOwner=\'${name}\'`);
-        }
-        console.log(query);
-        return this.pool.query(query);
-    }
     getOwnerFromClinicParams(params) {
         this.pool.connect();
         let query = 'SELECT * FROM VETOSANSFRONTIERE.Owner \n';
@@ -128,6 +67,27 @@ let DatabaseService = class DatabaseService {
             }
         }
         console.log(query);
+        return this.pool.query(query);
+    }
+    // Owner
+    getOwnerFromClinic(cID, oID) {
+        this.pool.connect();
+        let query = `SELECT * FROM VETOSANSFRONTIERE.Owner
+        WHERE cID=\'${cID}\'`;
+        if (oID !== undefined) {
+            query = query.concat(`AND ownerid=\'${oID}\'`);
+        }
+        console.log(query);
+        return this.pool.query(query);
+    }
+    /**
+     * getOwnerIdsFromClinic
+clinicid: string : Promise<pg.QueryResults>    */
+    getOwnerIdsFromClinic(clinicid) {
+        this.pool.connect();
+        console.log(`Getting Owners PKs from \'${clinicid}\'`);
+        let query = `SELECT ownerid FROM VETOSANSFRONTIERE.Owner
+        WHERE cID=\'${clinicid}\'`;
         return this.pool.query(query);
     }
     createOwner(Owner) {

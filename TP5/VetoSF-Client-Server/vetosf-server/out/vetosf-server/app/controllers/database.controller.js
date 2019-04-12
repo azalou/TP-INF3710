@@ -55,7 +55,7 @@ let DatabaseController = class DatabaseController {
                 console.error(e.stack);
             });
         });
-        router.get("/clinics/clinicids", (req, res, next) => {
+        router.get("/clinics/ids", (req, res, next) => {
             this.databaseService.getClinicId().then((result) => {
                 const clinicPKs = result.rows.map((row) => row.cid);
                 res.json(clinicPKs);
@@ -88,6 +88,14 @@ let DatabaseController = class DatabaseController {
                     address: owner.address
                 }));
                 res.json(owner);
+            }).catch((e) => {
+                console.error(e.stack);
+            });
+        });
+        router.get("/owners/:cid", (req, res, next) => {
+            this.databaseService.getOwnerIdsFromClinic(req.params.cid).then((result) => {
+                const ownersPK = result.rows.map((row) => row.ownerid);
+                res.json(ownersPK);
             }).catch((e) => {
                 console.error(e.stack);
             });
