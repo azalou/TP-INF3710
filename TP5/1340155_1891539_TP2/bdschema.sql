@@ -43,7 +43,8 @@ CREATE TABLE IF NOT EXISTS Owner (
     name       Varchar(100),
     phone       Varchar(20),
     address        Text,
-    UNIQUE (ownerID,cID),
+    Dateinscription		Date, 
+	UNIQUE (ownerID,cID),
     PRIMARY KEY (ownerID, cID),
     FOREIGN KEY (cID) REFERENCES Clinic(cID) ON DELETE RESTRICT ON UPDATE CASCADE
 );
@@ -85,5 +86,5 @@ CREATE TABLE IF NOT EXISTS Treatment (
     sDate       Date,
     eDate       Date,
 	PRIMARY KEY (treatID),
-	FOREIGN KEY (examID) REFERENCES Physical_Exam(examID) ON DELETE RESTRICT ON UPDATE CASCADE
+	FOREIGN KEY (examID) REFERENCES Exam(examID) ON DELETE RESTRICT ON UPDATE CASCADE
 );

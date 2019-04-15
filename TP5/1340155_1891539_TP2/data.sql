@@ -51,8 +51,8 @@ INSERT INTO Employe VALUES (
 'emp000002',
 'c000001',
 '127-234-345',
-'Midou',
-'Zitchcock',
+'Jean',
+'Tremblay',
 '514-589-3387',
 '1964-10-07',
 'M',
@@ -123,9 +123,10 @@ INSERT INTO Employe VALUES (
 INSERT INTO owner VALUES (
 'o000000001',
 'c000001',
-'Eric A Hitchcock',
+'Eric A Hitchblay',
 '514-586-8787',
-'1072 René-Lévesque Blvd\nMontreal QC H3B 4W8'
+'1072 René-Lévesque Blvd\nMontreal QC H3B 4W8',
+'1995-10-07'
 );
 -- Pet
 INSERT INTO pet VALUES (
@@ -163,9 +164,10 @@ DATE'2002-05-07',
 INSERT INTO owner VALUES (
 'o000000002',
 'c000001',
-'Christal W Peterson',
+'Christal W Peteblay',
 '514-583-5227',
-'4650 René-Lévesque Blvd\nMontreal QC H4S 4W8'
+'4650 René-Lévesque Blvd\nMontreal QC H4S 4W8',
+'1996-10-07'
 );
 -- Pet
 INSERT INTO pet VALUES (
@@ -185,7 +187,8 @@ INSERT INTO owner VALUES (
 'c000001',
 'Antoinette Ramirez',
 '514-512-7965',
-'3812 Sherbrooke Ouest\n Montreal QC H4A 1H3'
+'3812 Sherbrooke Ouest\n Montreal QC H4A 1H3',
+'1995-10-08'
 );
 -- Pet
 INSERT INTO pet VALUES (
@@ -205,7 +208,8 @@ INSERT INTO owner VALUES (
 'c000002',
 'Lillian Kidwell',
 '506-471-2521',
-'3292 Ross Terrasse\nFredericton NB E3B 5W5'
+'3292 Ross Terrasse\nFredericton NB E3B 5W5',
+'1995-11-07'
 );
 -- Pet
 INSERT INTO pet VALUES (
@@ -225,7 +229,8 @@ INSERT INTO owner VALUES (
 'c000002',
 'Fred Hill',
 '506-471-6953',
-'745 Palmer St\nFredericton NB 3B 3V2'
+'745 Palmer St\nFredericton NB 3B 3V2',
+'1995-10-07'
 );
 -- Pet
 INSERT INTO pet VALUES (
@@ -245,7 +250,8 @@ INSERT INTO owner VALUES (
 'c000003',
 'Annie Mayrand',
 '418-681-3992',
-'4012 Saskatchewan Dr\nQuebec QC G1N 2W9'
+'4012 Saskatchewan Dr\nQuebec QC G1N 2W9',
+'1995-10-07'
 );
 -- Pet
 INSERT INTO pet VALUES (
@@ -261,7 +267,7 @@ DATE'1035-06-03',
 
 -- ############# Examen ################
 
-INSERT INTO physical_exam VALUES (
+INSERT INTO Exam VALUES (
 'emp000002',
 'o000000001',
 'c000001',
@@ -272,7 +278,18 @@ INSERT INTO physical_exam VALUES (
 'La situation nest pas grave.'
 );
 
-INSERT INTO physical_exam VALUES (
+INSERT INTO Exam VALUES (
+'emp000002',
+'o000000001',
+'c000001',
+2,
+'exa000003',
+'2018-03-30',
+'08:00:00',
+'La situation nest pas grave.'
+);
+
+INSERT INTO Exam VALUES (
 'emp000004',
 'o000000001',
 'c000002',
