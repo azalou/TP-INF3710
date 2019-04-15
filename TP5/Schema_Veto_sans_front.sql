@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS Employe (
     eID         Varchar(10)     Not NULL,
     cID         Varchar(10)		Not NULL,
     NAS         Varchar(50)     Unique Not NULL,
-    name       Varchar(50),
+    name        Varchar(50),
     surname     Varchar(50),
     phone       Varchar(20),
     DOB         Date,
@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS Pet (
     petID       NUMERIC(2,0)     	Not NULL,
     name       Varchar(50),
     specie      Varchar(20)     Not NULL,
-    description Varchar,
+    description Text,
     DOB         Date,
     status      DOA,
     UNIQUE (ownerID, cID, petID),
@@ -62,17 +62,7 @@ CREATE TABLE IF NOT EXISTS Pet (
     FOREIGN KEY (ownerID, cID) REFERENCES Owner(ownerID, cID) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS Enrollment (
-    enID	      Serial		Not NULL,
-    ownerID     Varchar(10)		Not NULL,
-    cID         Varchar(10)		Not NULL,
-    petID       NUMERIC(2,0)     	Not NULL,
-    enrol_date  Date            	Not NULL,
-    PRIMARY KEY (enID),
-    FOREIGN KEY (ownerID, cID, petID) REFERENCES Pet(ownerID, cID, petID) ON DELETE CASCADE ON UPDATE CASCADE
-);
-
-CREATE TABLE IF NOT EXISTS Physical_Exam (
+CREATE TABLE IF NOT EXISTS physical_exam (
     eID         Varchar(10)     Not NULL,
     ownerID     Varchar(10)		Not NULL,
     cID         Varchar(10)		Not NULL,
@@ -80,7 +70,7 @@ CREATE TABLE IF NOT EXISTS Physical_Exam (
     examID      Varchar(10)     Not NULL,
     examDate    Date            Not NULL,
     examTime    Time            Not NULL,
-    description VARCHAR,
+    description Text,
     PRIMARY KEY (examID),
     FOREIGN KEY (eID) REFERENCES Employe(eID) ON DELETE RESTRICT ON UPDATE CASCADE,
     FOREIGN KEY (ownerID, cID, petID) REFERENCES Pet(ownerID, cID, petID) ON DELETE RESTRICT ON UPDATE CASCADE
@@ -90,20 +80,10 @@ CREATE TABLE IF NOT EXISTS Treatment (
     treatID     Varchar(10)     Not NULL,
     description Varchar,
     tcost       Numeric(5,2),
-    PRIMARY KEY (treatID)
-);
-
-CREATE TABLE IF NOT EXISTS ProposedTreatment(
-    treatID     Varchar(10)     Not NULL,
     examID      Varchar(10)     Not NULL,
-    ownerID     Varchar(10)		Not NULL,
-    cID         Varchar(10)		Not NULL,
-    petID       NUMERIC(2,0)     	Not NULL,
-    quantity       INTEGER         Not NULL,
+	quantity    INTEGER         Not NULL,
     sDate       Date,
     eDate       Date,
-    PRIMARY KEY (treatID),
-    FOREIGN KEY (examID) REFERENCES Physical_Exam(examID) ON DELETE RESTRICT ON UPDATE CASCADE,
-    FOREIGN KEY (ownerID, cID, petID) REFERENCES Pet(ownerID, cID, petID) ON DELETE RESTRICT ON UPDATE CASCADE
+	PRIMARY KEY (treatID),
+	FOREIGN KEY (examID) REFERENCES Physical_Exam(examID) ON DELETE RESTRICT ON UPDATE CASCADE
 );
-

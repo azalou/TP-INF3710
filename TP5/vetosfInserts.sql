@@ -1,6 +1,8 @@
 ﻿SET search_path = vetoSansFrontiere;
 
-INSERT INTO clinic VALUES (
+
+-- ############# Clinic ################
+INSERT INTO Clinic VALUES (
 'c000001',
 '514-323-2223',
 '514-231-5058',
@@ -10,7 +12,7 @@ INSERT INTO clinic VALUES (
 'H3C 5K4'
 );
 
-INSERT INTO clinic VALUES (
+INSERT INTO Clinic VALUES (
 'c000002',
 '506-471-4228',
 '506-471-4232',
@@ -20,7 +22,7 @@ INSERT INTO clinic VALUES (
 'E3B 5W5'
 );
 
-INSERT INTO clinic VALUES (
+INSERT INTO Clinic VALUES (
 'c000003',
 '418-454-9029',
 '418-454-9052',
@@ -30,7 +32,94 @@ INSERT INTO clinic VALUES (
 'G1V 3V5'
 );
 
--- ############# Owner ################
+-- ############# Employe ################
+INSERT INTO Employe VALUES (
+'emp000001',
+'c000001',
+'124-234-345',
+'Zidou',
+'Mitchcock',
+'514-586-3387',
+'1963-10-07',
+'M',
+'Manager',
+3000,
+'1072 René-Lévesque Blvd\nMontreal QC H3B 4W8'
+);
+
+INSERT INTO Employe VALUES (
+'emp000002',
+'c000001',
+'127-234-345',
+'Midou',
+'Zitchcock',
+'514-589-3387',
+'1964-10-07',
+'M',
+'veterinaire',
+2000,
+'1067 René-Lévesque Blvd\nMontreal QC H3B 4W8'
+);
+
+INSERT INTO Employe VALUES (
+'emp000003',
+'c000002',
+'124-678-345',
+'bidou',
+'Mitchlook',
+'514-586-3345',
+'1963-10-10',
+'M',
+'Manager',
+3000,
+'4472 René-Lévesque Blvd\nMontreal QC H3B 4W8'
+);
+
+INSERT INTO Employe VALUES (
+'emp000004',
+'c000002',
+'127-234-000',
+'Miyuou',
+'Zitrwegchcock',
+'438-589-3387',
+'1965-10-07',
+'M',
+'veterinaire',
+2000,
+'1072 René-Lévesque Blvd\nMontreal QC H3B 4W8'
+);
+
+INSERT INTO Employe VALUES (
+'emp000005',
+'c000003',
+'124-999-245',
+'bidosggdgu',
+'Mitchggglook',
+'514-526-3345',
+'1963-10-10',
+'F',
+'Manager',
+3000,
+'4472 René-Lévesque Blvd\nMontreal QC H3B 4W8'
+);
+
+INSERT INTO Employe VALUES (
+'emp000006',
+'c000003',
+'127-777-000',
+'Miyuou',
+'Zitrwegchcock',
+'438-587-3387',
+'1965-10-07',
+'M',
+'veterinaire',
+2000,
+'1072 René-Lévesque Blvd\nMontreal QC H3B 4W8'
+);	
+	
+-- ############# Owner--Pet ################
+
+-- owner
 INSERT INTO owner VALUES (
 'o000000001',
 'c000001',
@@ -70,7 +159,7 @@ DATE'2002-05-07',
 'Dead'
 );
 
--- ############# Owner ################
+-- owner
 INSERT INTO owner VALUES (
 'o000000002',
 'c000001',
@@ -90,7 +179,7 @@ DATE'2018-01-31',
 'Alive'
 );
 
--- ############# Owner ################
+-- owner
 INSERT INTO owner VALUES (
 'o000000003',
 'c000001',
@@ -110,7 +199,7 @@ DATE'2017-10-24',
 'Alive'
 );
 
--- ############# Owner ################
+-- owner
 INSERT INTO owner VALUES (
 'o000000001',
 'c000002',
@@ -130,7 +219,7 @@ DATE'2013-05-14',
 'Alive'
 );
 
--- ############# Owner ################
+-- owner
 INSERT INTO owner VALUES (
 'o000000002',
 'c000002',
@@ -150,7 +239,7 @@ DATE'2013-05-14',
 'Alive'
 );
 
--- ############# Owner ################
+-- owner
 INSERT INTO owner VALUES (
 'o000000001',
 'c000003',
@@ -169,3 +258,51 @@ INSERT INTO pet VALUES (
 DATE'1035-06-03',
 'Alive'
 );
+
+-- ############# Examen ################
+
+INSERT INTO physical_exam VALUES (
+'emp000002',
+'o000000001',
+'c000001',
+2,
+'exa000002',
+'2018-03-30',
+'08:00:00',
+'La situation nest pas grave.'
+);
+
+INSERT INTO physical_exam VALUES (
+'emp000004',
+'o000000001',
+'c000002',
+1,
+'exa000004',
+'2016-03-30',
+'08:00:00',
+'La situation n est pas grave.'
+);		
+
+-- ############# Treatment ################
+
+INSERT INTO Treatment VALUES (
+'tre000001'
+'Soignes paliatifs',
+200,
+1,
++3,
+DATE'2019-03-30',
+DATE'2019-03-30'
+);
+
+INSERT INTO Treatment VALUES (
+'tre000002'
+'Soignes paliatifs',
+200,
+2,
++3,
+DATE'2019-03-30',
+DATE'2019-03-30'
+);		
+		
+

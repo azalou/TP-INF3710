@@ -1,17 +1,19 @@
-CREATE OR REPLACE FUNCTION enrollpet() RETURNS trigger AS $e_pet$
+-- -- Check that Employe position is veterinaire
+CREATE OR REPLACE FUNCTION Examen() RETURNS trigger AS $Examin$
 DECLARE 
-    owner_ID  Varchar(10);
-    Clinic_ID Varchar(10);
-    pet_ID NUMERIC(2,0);
+    eID         Varchar(10);   
+	Eposition    Varchar(50),
     
 BEGIN        
-	SELECT NEW.ownerID, NEW.cID, NEW.petID INTO owner_ID, Clinic_ID, pet_ID;   
-	INSERT INTO vetoSansFrontiere.Enrollment(ownerID, cID, petID, enrol_date) VALUES (owner_ID, Clinic_ID, pet_ID, CURRENT_DATE);
+	
+	IF NOT EXISTS (SELECT eID FROM vetoSansFrontiere.Employe WHERE eID=NEW.eID and Eposition = 'veterinaire') THEN
+	RAISE EXCEPTION 'THE FUNCTION OF EMPLOYEE MUST BE veterinaire';
+	END IF;
 	RETURN NEW;
-END;
-$e_pet$ LANGUAGE plpgsql;
+	END;
+	$Examin$ LANGUAGE plpgsql;
 
-CREATE TRIGGER petin
-AFTER INSERT ON vetoSansFrontiere.Pet
+CREATE TRIGGER Examin
+BEFOR INSERT OR UPDATE ON vetoSansFrontiere.Exam
 FOR EACH ROW
-EXECUTE PROCEDURE enrollpet();
+EXECUTE PROCEDURE Examen();
