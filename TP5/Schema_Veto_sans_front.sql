@@ -81,9 +81,9 @@ CREATE TABLE IF NOT EXISTS Treatment (
     description Varchar,
     tcost       Numeric(5,2),
     examID      Varchar(10)     Not NULL,
-	quantity    INTEGER         Not NULL,
-    sDate       Date,
-    eDate       Date,
+    quantity    INTEGER    Not NULL,
+    sDate       Date            Not NULL,
+    eDate       Date            Not NULL,
 	PRIMARY KEY (treatID),
 	FOREIGN KEY (examID) REFERENCES Physical_Exam(examID) ON DELETE RESTRICT ON UPDATE CASCADE
 );

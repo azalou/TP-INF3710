@@ -286,23 +286,23 @@ INSERT INTO physical_exam VALUES (
 -- ############# Treatment ################
 
 INSERT INTO Treatment VALUES (
-'tre000001'
-'Soignes paliatifs',
+'tre000001',
+'Soignes',
 200,
-1,
-+3,
-DATE'2019-03-30',
-DATE'2019-03-30'
+'exa000002',
+3,
+'1963-10-07',
+'2019-03-30'
 );
 
 INSERT INTO Treatment VALUES (
-'tre000002'
-'Soignes paliatifs',
+'tre000002',
+'Soignes ',
 200,
-2,
-+3,
-DATE'2019-03-30',
-DATE'2019-03-30'
+'exa000004',
+3,
+'2019-03-30',
+'2019-03-30'
 );		
 		
 
