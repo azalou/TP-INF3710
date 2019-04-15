@@ -1,0 +1,200 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import '~@angular/material/prebuilt-themes/purple-green.css'; 
+.container {
+    position: relative;
+    text-align: center;
+    color: white;
+    font-size: xx-large;
+    -moz-box-shadow:    3px 3px 5px 6px #ccc;
+    -webkit-box-shadow: 3px 3px 5px 6px #ccc;
+    box-shadow:         3px 3px 5px 6px #ccc;
+  }
+  /* Bottom left text */
+  .bottom-left {
+    position: absolute;
+    bottom: 8px;
+    left: 16px;
+  }
+
+  /* Top left text */
+  .top-left {
+    position: absolute;
+    top: 8px;
+    left: 16px;
+  }
+
+  a:visited {
+      color: white;
+  }
+
+  /* Top right text */
+  .top-right {
+    position: absolute;
+    top: 8px;
+    right: 16px;
+  }
+
+  /* Bottom right text */
+  .bottom-right {
+    position: absolute;
+    bottom: 8px;
+    right: 16px;
+  }
+
+  /* Centered text */
+  .centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .templateWrapper {
+    display: block;
+    border-style: inset;
+    border-width:2px;
+    overflow: auto;
+    background-color: #f6ffff;
+}
+
+
+.frmTitle {
+    margin: 8px 0 0 8px;
+    text-align: center;
+}
+
+li {
+    list-style-type: none;
+}
+.centerContainer {
+    max-width: 600px;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+}
+
+.clearBoth {
+    clear: both;
+    height: 2px;
+}
+
+.labelName {
+    font-weight: bold;
+    font-size: large
+}
+
+.topAlign {
+    vertical-align: top;
+}
+
+.tempContDiv {
+    position: relative;
+    padding: 5px 5px 2px 5px;
+    margin-bottom: 0px;
+    display: inline-block;
+    width: 500px;
+}
+
+.errorMessage {
+    padding-top: 0px;
+    margin-top: 0px;
+    font-size: x-small;
+}
+
+.twoType span  {
+    display: inline-block;
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 45%;
+}
+
+.twoType .d1 {
+    display: inline-block;
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 45%;
+}
+
+
+.nameWrapper {
+    display: block;
+}
+
+.wrapDiv {
+    background-color: beige;
+    position: relative;
+    padding: 5px 5px 2px 5px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 5px;
+}
+
+.wrapDiv input[name="Address_City"], select[name="Address_Region"] {
+    width: 100%;
+}
+
+.wrapDiv span {
+    display: inline-block;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.wrapDiv input[name="Address_Street"] {
+    width: 100%;
+}
+
+.formSubInfoText {
+    display: block;
+    font-size: small;
+    color: #5f5f5f;
+    padding-left: 10px;
+    padding-top: 0px;
+    margin-top: 0px;
+}
+
+.wrapDiv input[type=submit] {
+    display: block;
+    width: 90%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 10px;
+    margin-left: auto;
+    margin-right: auto;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: large;
+}
+
+input[type=submit]:hover {
+    background-color: #45a049;
+  }
+
+input[type="text"], input[type="date"], input[type="time"] select  {
+    width: 100%;
+    padding: 6px 10px;
+    margin: 8px 0 0 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    display: inline-block;
+}
+
+  .Description {
+    width: 100%;
+    padding: 6px 10px;
+    margin: 8px 0 0 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    min-height: 150px;
+    float: left;
+  }
+  
+  .address {
+    width: 20em;
+    height: 5em;
+    margin-left: auto; margin-right: auto;
+}

@@ -1,0 +1,1 @@
+{"version":3,"file":"types.js","sourceRoot":"app/","sources":["vetosf-server/app/types.ts"],"names":[],"mappings":";;AAAA,kBAAgB;IACR,MAAM,EAAE,MAAM,CAAC,QAAQ,CAAC;IACxB,WAAW,EAAE,MAAM,CAAC,aAAa,CAAC;IAClC,kBAAkB,EAAE,MAAM,CAAC,oBAAoB,CAAC;IAChD,eAAe,EAAE,MAAM,CAAC,iBAAiB,CAAC;CACjD,CAAC"}
