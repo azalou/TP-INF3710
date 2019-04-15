@@ -1,21 +1,41 @@
 <div class="centerContainer ">
     <div id="formDiv">
-        <form id="ownerform" _lpchecked="1" action="/owner_save" method="POST">
+         <form id="ownerform" _lpchecked="1" action="/owner_save" method="POST">
             <div class="templateWrapper" id="formRedirectURL">
                 <h2 class="frmTitle"><em>Owner registration form</em></h2>
                 <div class="clearBoth"></div>
   
                 <div id="formBodyDiv" class="formRelative subContWrap topAlign">
                     <ul elname="formBodyULName" class="ulNoStyle" page_no="1" needpagedata="true">
-                            <div id="clinicdetail" class="wrapDiv" >
-                                    <li style="width: 200px;">
-                                        <label for="clinicID" class="labelName"> Clinic</label>
-                                        <select ng-model="clinicsID" ng-options="item for item in clinicsID"></select>
+                            <div id="clinicdetail" class="wrapDiv" style="float: left;">
+                                    <li style="width: 200px; float: left;">
+                                            <label for="clinicID" class="labelName"> Clinic ID</label>
+                                            <select (change)="onSelectedClinic($event.target.value)">
+                                                <option>---</option>
+                                                <option *ngFor="let item of ClinicPKs" [value]= "item">
+                                                    {{item}}
+                                                </option>
+                                            </select>
                                     </li>
+                                    <li style="width: 200px; float: right;" class="topAlign">
+                                            <label class="labelName">Owner ID</label>
+                                        <mat-form-field>
+                                                <input class="selectInput" type="text" 
+                                                aria-label="Number" matInput 
+                                                [formControl]="searchOwnerId" [matAutocomplete]="oID"
+                                                (change) = "fillOwnerDetails($event.target.value)">
+                                                <mat-autocomplete  #oID="matAutocomplete">
+                                                        <mat-option *ngFor="let item of ownerFiltered | async" [value]="item">
+                                                            {{ item }}
+                                                        </mat-option>
+                                                </mat-autocomplete>
+                                        </mat-form-field>
+                                        </li>
                             </div>
-                        
+                        <div class="clearBoth"></div>
                         <li >
                             <label for="namedetail" class="labelName">Name</label>
+
                             <div class="clearBoth"></div>
                             <div id="namedetail" class="wrapDiv twoType">
                                 <div class="nameWrapper">
@@ -28,10 +48,7 @@
                                     <span class="topAlign">
                                         <input type="text" maxlength="255" elname="Last" name="Name_Last" value="">
                                         <label class="formSubInfoText">Last</label>
-                                        <select id="ownerID" name="ownerID">
-                                            <option value="new">new</option>
-                                        </select>
-                                        <label class="formSubInfoText">ownerID</label>
+                                        
                                     </span>
                                     <div class="clearBoth"></div>
                                 </div>
@@ -47,18 +64,15 @@
                                 <div class="twoType">
                                     <span>
                                         <input type="text" maxlength="255" name="Address_Street" value="" >
-                                        <!-- Display name of 'AddressLine1' component of 'Address' field. -->
                                         <label class="formSubInfoText">Street Address</label>
                                     </span>
                                     <span> 
                                         <input type="text" maxlength="255" name="Address_City" value="">
-                                        <!-- Display name of 'City' component of 'Address' field. -->
                                         <label class="formSubInfoText">City</label>
                                     </span>
                                 </div>
                                 <div class="clearBoth"></div>
                                 <span>
-                                    <!-- <input type="text" maxlength="255" name="Address_Region" value=""> -->
                                     <select name="Address_Region">
                                         <option value="AB">Alberta</option>
                                         <option value="BC">British Columbia</option>
@@ -74,12 +88,10 @@
                                         <option value="NU">Nunavut</option>
                                         <option value="YT">Yukon</option>
                                     </select>
-                                    <!-- Display name of 'Region' component of 'Address' field. -->
                                     <label class="formSubInfoText">Province</label>
                                 </span>
                                 <span> 
                                     <input type="text" maxlength="255" name="Address_ZipCode" value="">
-                                    <!-- Display name of 'ZipCode' component of 'Address' field. -->
                                     <label class="formSubInfoText">Postal / Zip Code</label>
                                 </span>
                                 <div class="clearBoth"></div>
@@ -100,10 +112,6 @@
                 </ul>
                 
                 </div>
-                <!-- Uncomment the following Code to enable automation location based value filling for GeoLocation Fields -->
-                <!-- Set the mapquestURL from zohoforms.properties -->
-                <!--   -->
-                <!--Div to show error for unconfirmed users -->
                 <div id="errorDiv" style="display:none" class="errorMsgWrapper"><div class="flLeft errorIcon"></div>
                 <div class="errorMsgCont"><h2>Error Occurred!</h2>
                 <span id="errorMsgSpan">You haven't verified your email yet, click<a href="javascript:;" onclick="ZFUtil.resendMail('0');"> here </a> to receive a verification email.</span></div>

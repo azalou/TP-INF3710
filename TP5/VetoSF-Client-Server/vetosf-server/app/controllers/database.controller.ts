@@ -55,7 +55,7 @@ export class DatabaseController {
                 });
             });
 
-        router.get("/clinics/clinicids",
+        router.get("/clinics/ids",
                    (req: Request, res: Response, next: NextFunction) => {
                       this.databaseService.getClinicId().then((result: pg.QueryResult) => {
                         const clinicPKs: string[] = result.rows.map((row: any) => row.cid);
@@ -97,6 +97,16 @@ export class DatabaseController {
                         console.error(e.stack);
                     });
             });
+
+        router.get("/owners/:cid",
+        (req: Request, res: Response, next: NextFunction) => {
+            this.databaseService.getOwnerIdsFromClinic(req.params.cid).then((result: pg.QueryResult) => {
+              const ownersPK: string[] = result.rows.map((row: any) => row.ownerid);
+              res.json(ownersPK);
+            }).catch((e: Error) => {
+              console.error(e.stack);
+          });
+        });
 
         router.post("/owner/insert",
                     (req: Request, res: Response, next: NextFunction) => {

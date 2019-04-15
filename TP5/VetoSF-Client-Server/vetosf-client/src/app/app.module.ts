@@ -8,6 +8,9 @@ import { AppComponent } from "./app.component";
 import { CommunicationService } from "./communication.service";
 import { RegistrationComponent } from './Registration/registration.component';
 import { HomeComponent } from './home/home.component';
+import { MatFormFieldModule, MatInputModule, MatAutocompleteModule } from "@angular/material"
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations"
+
 
 @NgModule({
   declarations: [
@@ -21,7 +24,11 @@ import { HomeComponent } from './home/home.component';
     HttpClientModule,
     FormsModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatAutocompleteModule,
+    BrowserAnimationsModule,
   ],
   providers: [CommunicationService],
   bootstrap: [AppComponent]

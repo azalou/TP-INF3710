@@ -30,8 +30,19 @@ export class CommunicationService {
         );
     }
 
+    /**
+     * getOwnersFromClinicID
+     */
+    public getOwnerPKFromClinicID(cid: string) {
+
+        return this.http.get<string[]>(this.BASE_URL + "/owners/" + cid).pipe(
+            catchError(this.handleError<string[]>("getOwnersPKs")),
+        );
+        
+    }
+
     public getClinicsPK(): Observable<string[]> {
-        return this.http.get<string[]>(this.BASE_URL + "/clinics/clinicIDs").pipe(
+        return this.http.get<string[]>(this.BASE_URL + "/clinics/ids").pipe(
             catchError(this.handleError<string[]>("getClinicsPKs")),
             );
       }
